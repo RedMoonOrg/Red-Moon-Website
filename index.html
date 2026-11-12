@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Red Moon Online</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   RED MOON ONLINE - estilos (colores principales aquí)
+   ========================================================= */
+:root{
+  --rojo:#e3262b;        /* rojo luna */
+  --rojo-claro:#ff6b4a;
+  --piedra:#1b1416;      /* piedra oscura */
+  --piedra-2:#2a1f21;
+  --borde:#5a3b33;
+  --texto:#efe3d6;
+  --texto-suave:#b9a594;
+  --oro:#f2b54a;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:#0b0809;
+  color:var(--texto);
+  font-family:Inter,system-ui,sans-serif;
+  line-height:1.55;
+}
+a{color:var(--rojo-claro)}
+
+/* ---------- PORTADA (imagen de fondo arriba) ---------- */
+.portada{
+  position:relative;
+  min-height:58vh;
+  background:url("fondo.jpg") center top/cover no-repeat;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.portada::after{ /* oscurece abajo para que se lea */
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,rgba(0,0,0,0) 35%,rgba(11,8,9,.65) 80%,#0b0809 100%);
+  pointer-events:none;
+}
+.barra-top{
+  position:relative;z-index:3;
+  display:flex;justify-content:flex-end;align-items:center;gap:10px;
+  padding:12px 14px;
+}
+.titulo{
+  position:relative;z-index:2;text-align:center;padding:0 12px 26px;
+}
+.titulo h1{
+  font-family:Cinzel,serif;font-weight:900;margin:0;
+  font-size:clamp(34px,8vw,78px);letter-spacing:3px;
+  color:#fff;
+  text-shadow:0 0 18px rgba(227,38,43,.9),0 0 40px rgba(227,38,43,.55),0 4px 0 #3a0c0c;
+}
+.titulo p{margin:6px 0 0;color:#f1d6c8;font-family:Cinzel,serif;letter-spacing:2px;font-size:clamp(12px,2.6vw,18px);text-shadow:0 2px 6px #000}
+
+/* ---------- Banderita de idioma ---------- */
+.idioma{position:relative}
+.idioma-btn{
+  background:rgba(20,12,13,.75);border:1px solid var(--borde);color:#fff;
+  border-radius:8px;padding:6px 10px;font-size:15px;cursor:pointer;
+  display:flex;align-items:center;gap:6px;
+}
+.idioma-lista{
+  position:absolute;right:0;top:110%;display:none;
+  background:var(--piedra);border:1px solid var(--borde);border-radius:8px;overflow:hidden;
+  box-shadow:0 8px 24px rgba(0,0,0,.6);min-width:150px;
+}
+.idioma-lista.abierta{display:block}
+.idioma-lista button{
+  display:flex;gap:8px;width:100%;background:none;border:0;color:var(--texto);
+  padding:10px 12px;font-size:15px;text-align:left;cursor:pointer;
+}
+.idioma-lista button:hover{background:var(--piedra-2)}
+
+/* ---------- Botón Play for Free ---------- */
+.btn-play{
+  font-family:Cinzel,serif;font-weight:800;letter-spacing:1px;
+  background:linear-gradient(180deg,#ff4a3d,#a80f14);
+  color:#fff;text-decoration:none;border:1px solid #ff8a70;
+  padding:9px 16px;border-radius:8px;font-size:15px;
+  box-shadow:0 0 14px rgba(227,38,43,.7),inset 0 1px 0 rgba(255,255,255,.35);
+  white-space:nowrap;
+}
+.btn-play:hover{filter:brightness(1.12)}
+
+/* ---------- MENÚ de piedra ---------- */
+nav.menu{
+  position:relative;z-index:4;
+  margin:0 auto;max-width:1100px;
+  background:
+    radial-gradient(circle at 20% 30%,rgba(255,255,255,.04) 0 2px,transparent 3px),
+    radial-gradient(circle at 70% 60%,rgba(0,0,0,.25) 0 3px,transparent 4px),
+    linear-gradient(180deg,#3a2c2a,#221819 55%,#181112);
+  background-size:38px 38px,52px 52px,auto;
+  border:2px solid #120c0c;
+  outline:1px solid var(--borde);
+  border-radius:10px;
+  box-shadow:0 0 22px rgba(227,38,43,.35),inset 0 1px 0 rgba(255,255,255,.08);
+  display:flex;flex-wrap:wrap;justify-content:center;
+  padding:4px 6px;
+}
+nav.menu a{
+  position:relative;
+  font-family:Cinzel,serif;font-weight:800;
+  color:#e9dccd;text-decoration:none;
+  padding:10px 14px;font-size:15px;letter-spacing:.5px;
+  text-shadow:0 2px 0 #000;
+}
+nav.menu a + a::before{ /* separador */
+  content:"";position:absolute;left:-1px;top:24%;height:52%;width:3px;
+  background:linear-gradient(180deg,#6b5b55,#2c2223);border-radius:2px;
+}
+nav.menu a:hover{color:#fff}
+nav.menu a.activo{color:var(--rojo-claro);text-shadow:0 0 10px rgba(227,38,43,.9),0 2px 0 #000}
+nav.menu a.activo::after{
+  content:"";position:absolute;left:14px;right:14px;bottom:5px;height:2px;
+  background:var(--rojo);box-shadow:0 0 8px var(--rojo);
+}
+
+/* ---------- Contenido ---------- */
+main{max-width:1100px;margin:22px auto 40px;padding:0 14px}
+.pagina{display:none}
+.pagina.visible{display:block}
+
+.caja{
+  background:linear-gradient(180deg,rgba(42,31,33,.92),rgba(24,17,18,.95));
+  border:1px solid var(--borde);border-radius:12px;
+  box-shadow:0 0 0 1px #0c0809,0 10px 30px rgba(0,0,0,.45);
+  padding:18px;margin-bottom:18px;
+}
+.caja h2{
+  font-family:Cinzel,serif;margin:0 0 12px;font-size:20px;color:#fff;
+  display:flex;align-items:center;gap:10px;
+  border-bottom:1px solid #3d2b29;padding-bottom:10px;
+}
+.caja h2 .punto{width:10px;height:10px;border-radius:50%;background:var(--rojo);box-shadow:0 0 10px var(--rojo)}
+.grid-inicio{display:grid;grid-template-columns:1fr 300px;gap:18px}
+@media (max-width:820px){.grid-inicio{grid-template-columns:1fr}}
+
+.entrada{padding:12px 0;border-bottom:1px dashed #3d2b29}
+.entrada:last-child{border-bottom:0}
+.entrada h3{margin:0 0 4px;font-family:Cinzel,serif;font-size:17px;color:var(--oro)}
+.fecha{font-size:12px;color:var(--texto-suave);text-transform:uppercase;letter-spacing:1px}
+.entrada p{margin:6px 0 0;white-space:pre-line}
+.etiqueta{display:inline-block;font-size:12px;padding:2px 8px;border-radius:20px;background:rgba(227,38,43,.18);color:#ff9a86;border:1px solid rgba(227,38,43,.5);margin-right:6px}
+
+.btn{
+  display:block;text-align:center;text-decoration:none;cursor:pointer;
+  font-family:Cinzel,serif;font-weight:800;font-size:16px;letter-spacing:1px;
+  padding:12px;border-radius:10px;color:#fff;border:1px solid #ff8a70;
+  background:linear-gradient(180deg,#e2342c,#8c0d11);
+  box-shadow:0 0 14px rgba(227,38,43,.5);
+  width:100%;
+}
+.btn.secundario{background:linear-gradient(180deg,#3b2c2b,#211819);border-color:var(--borde);box-shadow:none}
+.btn + .btn{margin-top:10px}
+
+.redes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.red{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  text-decoration:none;color:var(--texto);font-size:12px;
+  background:#1a1213;border:1px solid var(--borde);border-radius:10px;padding:12px 4px;
+}
+.red:hover{border-color:var(--rojo);box-shadow:0 0 10px rgba(227,38,43,.45)}
+.red svg{width:28px;height:28px;fill:var(--rojo-claro)}
+
+.tarjetas{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.tarjeta{background:#1a1213;border:1px solid var(--borde);border-radius:12px;padding:18px;text-align:center}
+.tarjeta h3{font-family:Cinzel,serif;margin:6px 0;color:#fff}
+.tarjeta p{color:var(--texto-suave);margin:0 0 12px}
+.icono-grande{font-size:38px}
+.pronto{display:inline-block;font-family:Cinzel,serif;font-weight:800;color:var(--oro);border:1px solid var(--oro);border-radius:20px;padding:3px 12px;font-size:13px}
+
+form .campo{margin-bottom:12px}
+form label{display:block;font-size:13px;color:var(--texto-suave);margin-bottom:4px}
+form input{
+  width:100%;padding:11px 12px;border-radius:8px;border:1px solid var(--borde);
+  background:#120c0d;color:#fff;font-size:16px;
+}
+form input:focus{outline:none;border-color:var(--rojo);box-shadow:0 0 0 2px rgba(227,38,43,.3)}
+.aviso{margin-top:10px;padding:10px;border-radius:8px;background:rgba(242,181,74,.12);border:1px solid rgba(242,181,74,.5);color:#f6d79b;display:none;font-size:14px}
+.aviso.ver{display:block}
+.dos-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:720px){.dos-col{grid-template-columns:1fr}}
+
+footer{text-align:center;color:#7d6a5f;font-size:13px;padding:24px 10px 34px;border-top:1px solid #241a1a}
+@media (max-width:520px){
+  nav.menu a{padding:9px 10px;font-size:13px}
+  .btn-play{padding:8px 12px;font-size:13px}
+  .portada{min-height:44vh}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= PORTADA ================= -->
+<header class="portada">
+  <div class="barra-top">
+    <!-- Banderita de idioma: al tocarla salen los otros idiomas -->
+    <div class="idioma">
+      <button class="idioma-btn" id="idiomaBtn" aria-label="Language"><span id="banderaActual">🇺🇸</span> <span id="codigoActual">EN</span> ▾</button>
+      <div class="idioma-lista" id="idiomaLista">
+        <button data-lang="en">🇺🇸 English</button>
+        <button data-lang="es">🇪🇸 Español</button>
+        <button data-lang="pt">🇧🇷 Português</button>
+      </div>
+    </div>
+    <!-- Botón Play for Free: lleva a Descargas -->
+    <a class="btn-play" href="#descargar" data-t="play"></a>
+  </div>
+  <div class="titulo">
+    <h1>RED MOON ONLINE</h1>
+    <p data-t="lema"></p>
+  </div>
+</header>
+
+<!-- ================= MENÚ ================= -->
+<nav class="menu" id="menu">
+  <a href="#inicio" data-t="m_inicio"></a>
+  <a href="#noticias" data-t="m_noticias"></a>
+  <a href="#cuenta" data-t="m_cuenta"></a>
+  <a href="#wiki" data-t="m_wiki"></a>
+  <a href="#market" data-t="m_market"></a>
+  <a href="#nosotros" data-t="m_nosotros"></a>
+  <a href="#soporte" data-t="m_soporte"></a>
+  <a href="#ranking" data-t="m_ranking"></a>
+  <a href="#reglas" data-t="m_reglas"></a>
+  <a href="#redes" data-t="m_redes"></a>
+</nav>
+
+<main>
+
+  <!-- ===== INICIO ===== -->
+  <section class="pagina" id="p-inicio">
+    <div class="grid-inicio">
+      <div>
+        <div class="caja">
+          <h2><span class="punto"></span><span data-t="eventos"></span></h2>
+          <div id="listaEventosInicio"></div>
+        </div>
+        <div class="caja">
+          <h2><span class="punto"></span><span data-t="m_noticias"></span></h2>
+          <div id="listaNoticiasInicio"></div>
+        </div>
+      </div>
+      <aside>
+        <div class="caja">
+          <h2><span class="punto"></span><span data-t="m_cuenta"></span></h2>
+          <a class="btn" href="#cuenta" data-t="ir_cuenta"></a>
+          <a class="btn secundario" href="#descargar" data-t="preregistro"></a>
+        </div>
+        <div class="caja">
+          <h2><span class="punto"></span><span data-t="m_redes"></span></h2>
+          <div class="redes" id="redesInicio"></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ===== NOTICIAS ===== -->
+  <section class="pagina" id="p-noticias">
+    <div class="caja">
+      <h2><span class="punto"></span><span data-t="m_noticias"></span></h2>
+      <div id="listaNoticias"></div>
+    </div>
+  </section>
+
+  <!-- ===== CUENTA ===== -->
+  <section class="pagina" id="p-cuenta">
+    <div class="dos-col">
+      <div class="caja">
+        <h2><span class="punto"></span><span data-t="entrar"></span></h2>
+        <form class="formPronto">
+          <div class="campo"><label data-t="usuario"></label><input type="text" autocomplete="username"></div>
+          <div class="campo"><label data-t="clave"></label><input type="password" autocomplete="current-password"></div>
+          <button class="btn" type="submit" data-t="entrar"></button>
+          <div class="aviso" data-t="cuentas_pronto"></div>
+        </form>
+      </div>
+      <div class="caja">
+        <h2><span class="punto"></span><span data-t="registrar"></span></h2>
+        <form class="formPronto">
+          <div class="campo"><label data-t="usuario"></label><input type="text" autocomplete="username"></div>
+          <div class="campo"><label data-t="correo"></label><input type="email" autocomplete="email"></div>
+          <div class="campo"><label data-t="clave"></label><input type="password" autocomplete="new-password"></div>
+          <button class="btn" type="submit" data-t="registrar"></button>
+          <div class="aviso" data-t="cuentas_pronto"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WIKI ===== -->
+  <section class="pagina" id="p-wiki">
+    <div class="caja"><h2><span class="punto"></span><span data-t="m_wiki"></span></h2>
+      <p data-t="wiki_txt"></p><span class="pronto" data-t="pronto"></span></div>
+  </section>
+
+  <!-- ===== MARKET ===== -->
+  <section class="pagina" id="p-market">
+    <div class="caja">
+      <h2><span class="punto"></span><span data-t="m_market"></span></h2>
+      <div class="tarjetas">
+        <div class="tarjeta"><div class="icono-grande">💰</div><h3>Shop</h3><p data-t="shop_txt"></p><span class="pronto" data-t="pronto"></span></div>
+        <div class="tarjeta"><div class="icono-grande">⚔️</div><h3 data-t="mercado_pj"></h3><p data-t="mercado_pj_txt"></p><span class="pronto" data-t="pronto"></span></div>
+        <div class="tarjeta"><div class="icono-grande">🌑</div><h3>Coming soon</h3><p data-t="especiales_txt"></p><span class="pronto" data-t="pronto"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== QUIÉNES SOMOS ===== -->
+  <section class="pagina" id="p-nosotros">
+    <div class="caja"><h2><span class="punto"></span><span data-t="m_nosotros"></span></h2>
+      <p data-t="nosotros_txt"></p></div>
+  </section>
+
+  <!-- ===== SOPORTE ===== -->
+  <section class="pagina" id="p-soporte">
+    <div class="caja"><h2><span class="punto"></span><span data-t="m_soporte"></span></h2>
+      <p data-t="soporte_txt"></p><span class="pronto" data-t="pronto"></span></div>
+  </section>
+
+  <!-- ===== RANKING ===== -->
+  <section class="pagina" id="p-ranking">
+    <div class="caja"><h2><span class="punto"></span><span data-t="m_ranking"></span></h2>
+      <p data-t="ranking_txt"></p><span class="pronto" data-t="pronto"></span></div>
+  </section>
+
+  <!-- ===== REGLAS ===== -->
+  <section class="pagina" id="p-reglas">
+    <div class="caja"><h2><span class="punto"></span><span data-t="m_reglas"></span></h2>
+      <p data-t="reglas_txt"></p><span class="pronto" data-t="pronto"></span></div>
+  </section>
+
+  <!-- ===== REDES ===== -->
+  <section class="pagina" id="p-redes">
+    <div class="caja"><h2><span class="punto"></span><span data-t="m_redes"></span></h2>
+      <div class="redes" id="redesPagina"></div></div>
+  </section>
+
+  <!-- ===== DESCARGAR / PRE-REGISTRO (botón Play for Free) ===== -->
+  <section class="pagina" id="p-descargar">
+    <div class="dos-col">
+      <div class="caja">
+        <h2><span class="punto"></span><span data-t="descargar"></span></h2>
+        <p data-t="descargar_txt"></p>
+        <!-- Cuando tengas los links de las tiendas, cámbialos aquí -->
+        <a class="btn secundario" href="#descargar">App Store — <span data-t="pronto"></span></a>
+        <a class="btn secundario" href="#descargar">Google Play — <span data-t="pronto"></span></a>
+      </div>
+      <div class="caja">
+        <h2><span class="punto"></span><span data-t="preregistro"></span></h2>
+        <form class="formPronto">
+          <div class="campo"><label data-t="correo"></label><input type="email" autocomplete="email"></div>
+          <div class="campo"><label data-t="nombre_pj"></label><input type="text"></div>
+          <button class="btn" type="submit" data-t="preregistrarme"></button>
+          <div class="aviso" data-t="prereg_pronto"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>© <span id="anio"></span> Red Moon Online — rmonlinemmo.com</footer>
+
+<script>
+/* =========================================================
+   1) LINKS DE REDES — pon aquí tus links cuando los tengas
+      (deja "#" mientras no exista)
+   ========================================================= */
+const REDES = [
+  { nombre:"Discord",   link:"#" },
+  { nombre:"Instagram", link:"#" },
+  { nombre:"Facebook",  link:"#" },
+  { nombre:"TikTok",    link:"#" },
+  { nombre:"YouTube",   link:"#" },
+  { nombre:"X",         link:"#" }
+];
+
+/* =========================================================
+   2) EVENTOS — para añadir uno, copia un bloque { ... } y
+      ponlo ARRIBA (el primero sale primero).
+      Escribe el texto en los 3 idiomas: en / es / pt
+   ========================================================= */
+const EVENTOS = [
+  {
+    etiqueta:{ en:"Event", es:"Evento", pt:"Evento" },
+    titulo:{ en:"Pre-registration Event", es:"Evento de Pre-registro", pt:"Evento de Pré-registro" },
+    fecha:{ en:"Valid until launch · Date to be announced", es:"Válido hasta el lanzamiento · Fecha por anunciar", pt:"Válido até o lançamento · Data a ser anunciada" },
+    texto:{
+      en:"Pre-register now and be part of Red Moon Online from day one.\nPre-registration rewards: coming soon.",
+      es:"Pre-regístrate ahora y forma parte de Red Moon Online desde el primer día.\nRecompensas de pre-registro: próximamente.",
+      pt:"Faça seu pré-registro agora e faça parte de Red Moon Online desde o primeiro dia.\nRecompensas de pré-registro: em breve."
+    }
+  }
+];
+
+/* =========================================================
+   3) NOTICIAS — igual que los eventos. La primera de la lista
+      es la más nueva y sale en Inicio.
+   ========================================================= */
+const NOTICIAS = [
+  {
+    etiqueta:{ en:"News", es:"Noticia", pt:"Notícia" },
+    titulo:{ en:"Welcome to Red Moon Online!", es:"¡Bienvenidos a Red Moon Online!", pt:"Bem-vindos ao Red Moon Online!" },
+    fecha:{ en:"The Red Moon Team", es:"El equipo de Red Moon", pt:"A equipe Red Moon" },
+    texto:{
+      en:"Hello! The Red Moon team welcomes you to this beautiful project we are putting our hearts into. We hope you join us to live this experience and see how far it takes us.\n\nWe hope you enjoy it to the fullest!\nThe Red Moon Team",
+      es:"¡Hola! El equipo de Red Moon te da la bienvenida a este hermoso proyecto al que le estamos poniendo nuestro corazón. Esperamos que nos acompañes a vivir esta experiencia y a ver hasta dónde nos lleva.\n\n¡Esperamos que lo disfrutes al máximo!\nEl equipo de Red Moon",
+      pt:"Olá! A equipe Red Moon dá as boas-vindas a este lindo projeto no qual estamos colocando nosso coração. Esperamos que você nos acompanhe para viver esta experiência e ver até onde ela nos leva.\n\nEsperamos que você aproveite ao máximo!\nA equipe Red Moon"
+    }
+  }
+];
+
+/* =========================================================
+   4) TEXTOS DE LA PÁGINA EN LOS 3 IDIOMAS
+   ========================================================= */
+const T = {
+  en:{
+    play:"Play for Free", lema:"Rise under the Red Moon",
+    m_inicio:"Home", m_noticias:"News", m_cuenta:"Account", m_wiki:"Wiki", m_market:"Market",
+    m_nosotros:"About Us", m_soporte:"Support", m_ranking:"Ranking", m_reglas:"Rules", m_redes:"Socials",
+    eventos:"Events", ir_cuenta:"Account", preregistro:"Pre-register",
+    entrar:"Log in", registrar:"Sign up", usuario:"Username", clave:"Password", correo:"Email",
+    cuentas_pronto:"Accounts will open soon. Stay tuned!",
+    pronto:"Coming soon",
+    wiki_txt:"The game guide: classes, maps, monsters, bosses and items.",
+    shop_txt:"Buy the in-game currency.",
+    mercado_pj:"Character Market", mercado_pj_txt:"Buy and sell characters safely and officially.",
+    especiales_txt:"Special items will be sold here.",
+    nosotros_txt:"We are the Red Moon team. More about us coming soon.",
+    soporte_txt:"Need help? The support center opens soon.",
+    ranking_txt:"The best players and clans will appear here.",
+    reglas_txt:"The game rules will be published here.",
+    descargar:"Download", descargar_txt:"Red Moon Online is coming soon. Download links will appear here at launch.",
+    nombre_pj:"Character name (optional)", preregistrarme:"Pre-register me",
+    prereg_pronto:"Pre-registration opens very soon. Thank you for your interest!"
+  },
+  es:{
+    play:"Juega gratis", lema:"Levántate bajo la Luna Roja",
+    m_inicio:"Inicio", m_noticias:"Noticias", m_cuenta:"Cuenta", m_wiki:"Wiki", m_market:"Market",
+    m_nosotros:"Quiénes somos", m_soporte:"Soporte", m_ranking:"Ranking", m_reglas:"Reglas", m_redes:"Redes",
+    eventos:"Eventos", ir_cuenta:"Cuenta", preregistro:"Pre-registro",
+    entrar:"Ingresar", registrar:"Registrarse", usuario:"Usuario", clave:"Contraseña", correo:"Correo",
+    cuentas_pronto:"Las cuentas abren pronto. ¡Mantente atento!",
+    pronto:"Próximamente",
+    wiki_txt:"La guía del juego: clases, mapas, monstruos, jefes e items.",
+    shop_txt:"Compra la moneda del juego.",
+    mercado_pj:"Mercado de personajes", mercado_pj_txt:"Compra y vende personajes de forma segura y oficial.",
+    especiales_txt:"Aquí se venderán cosas especiales.",
+    nosotros_txt:"Somos el equipo de Red Moon. Pronto más sobre nosotros.",
+    soporte_txt:"¿Necesitas ayuda? El centro de soporte abre pronto.",
+    ranking_txt:"Aquí saldrán los mejores jugadores y clanes.",
+    reglas_txt:"Aquí se publicarán las reglas del juego.",
+    descargar:"Descargar", descargar_txt:"Red Moon Online llega pronto. Los links de descarga saldrán aquí en el lanzamiento.",
+    nombre_pj:"Nombre de personaje (opcional)", preregistrarme:"Pre-registrarme",
+    prereg_pronto:"El pre-registro abre muy pronto. ¡Gracias por tu interés!"
+  },
+  pt:{
+    play:"Jogue grátis", lema:"Erga-se sob a Lua Vermelha",
+    m_inicio:"Início", m_noticias:"Notícias", m_cuenta:"Conta", m_wiki:"Wiki", m_market:"Market",
+    m_nosotros:"Quem somos", m_soporte:"Suporte", m_ranking:"Ranking", m_reglas:"Regras", m_redes:"Redes",
+    eventos:"Eventos", ir_cuenta:"Conta", preregistro:"Pré-registro",
+    entrar:"Entrar", registrar:"Cadastrar", usuario:"Usuário", clave:"Senha", correo:"E-mail",
+    cuentas_pronto:"As contas abrem em breve. Fique ligado!",
+    pronto:"Em breve",
+    wiki_txt:"O guia do jogo: classes, mapas, monstros, chefes e itens.",
+    shop_txt:"Compre a moeda do jogo.",
+    mercado_pj:"Mercado de personagens", mercado_pj_txt:"Compre e venda personagens de forma segura e oficial.",
+    especiales_txt:"Aqui serão vendidos itens especiais.",
+    nosotros_txt:"Somos a equipe Red Moon. Em breve mais sobre nós.",
+    soporte_txt:"Precisa de ajuda? A central de suporte abre em breve.",
+    ranking_txt:"Aqui aparecerão os melhores jogadores e clãs.",
+    reglas_txt:"Aqui serão publicadas as regras do jogo.",
+    descargar:"Baixar", descargar_txt:"Red Moon Online chega em breve. Os links de download aparecerão aqui no lançamento.",
+    nombre_pj:"Nome do personagem (opcional)", preregistrarme:"Fazer pré-registro",
+    prereg_pronto:"O pré-registro abre muito em breve. Obrigado pelo interesse!"
+  }
+};
+
+/* ===================== (no hace falta tocar lo de abajo) ===================== */
+const BANDERAS = { en:["🇺🇸","EN"], es:["🇪🇸","ES"], pt:["🇧🇷","PT"] };
+const ICONOS = { /* iconos simples, genéricos */
+  Discord:'<svg viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-9l-5 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm5 5a1.3 1.3 0 1 0 0 2.6A1.3 1.3 0 0 0 9 10zm6 0a1.3 1.3 0 1 0 0 2.6A1.3 1.3 0 0 0 15 10z"/></svg>',
+  Instagram:'<svg viewBox="0 0 24 24"><path d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zm0 2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm5 3.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7zm0 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM17.3 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>',
+  Facebook:'<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1.5 6H15V5.5h-1.8c-2 0-3.2 1.2-3.2 3.3V11H8v2.5h2V20h2.5v-6.5h2l.4-2.5h-2.4V9c0-.6.3-1 1-1z"/></svg>',
+  TikTok:'<svg viewBox="0 0 24 24"><path d="M10 9v7a2.5 2.5 0 1 1-2.5-2.5V11A5 5 0 1 0 12.5 16V8.5A6 6 0 0 0 17 10V7.5a3.5 3.5 0 0 1-3.5-3.5H11v5z"/></svg>',
+  YouTube:'<svg viewBox="0 0 24 24"><path d="M5 5h14a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3zm5 4v6l5-3z"/></svg>',
+  X:'<svg viewBox="0 0 24 24"><path d="M4 4h4l4 5.5L16.5 4H20l-6.2 7.6L20 20h-4l-4.3-5.8L7 20H3.5l6.5-8z"/></svg>'
+};
+let idioma = "en";
+try { const g = localStorage.getItem("rm_idioma"); if (T[g]) idioma = g; } catch(e){}
+
+function pintarEntradas(lista, cont, max){
+  const el = document.getElementById(cont); if(!el) return;
+  el.innerHTML = lista.slice(0, max || lista.length).map(n => `
+    <div class="entrada">
+      <span class="etiqueta">${n.etiqueta[idioma]}</span><span class="fecha">${n.fecha[idioma]}</span>
+      <h3>${n.titulo[idioma]}</h3>
+      <p>${n.texto[idioma]}</p>
+    </div>`).join("");
+}
+function pintarRedes(cont){
+  document.getElementById(cont).innerHTML = REDES.map(r =>
+    `<a class="red" href="${r.link}" ${r.link !== "#" ? 'target="_blank" rel="noopener"' : ""}>${ICONOS[r.nombre]||""}<span>${r.nombre}</span></a>`).join("");
+}
+function aplicarIdioma(){
+  document.documentElement.lang = idioma;
+  document.querySelectorAll("[data-t]").forEach(el => { const k = el.dataset.t; if (T[idioma][k]) el.textContent = T[idioma][k]; });
+  document.getElementById("banderaActual").textContent = BANDERAS[idioma][0];
+  document.getElementById("codigoActual").textContent = BANDERAS[idioma][1];
+  pintarEntradas(EVENTOS, "listaEventosInicio", 3);
+  pintarEntradas(NOTICIAS, "listaNoticiasInicio", 3);
+  pintarEntradas(NOTICIAS, "listaNoticias");
+}
+function mostrarPagina(){
+  let id = (location.hash || "#inicio").slice(1);
+  if (!document.getElementById("p-" + id)) id = "inicio";
+  document.querySelectorAll(".pagina").forEach(p => p.classList.toggle("visible", p.id === "p-" + id));
+  document.querySelectorAll("nav.menu a").forEach(a => a.classList.toggle("activo", a.getAttribute("href") === "#" + id));
+  if (location.hash) document.getElementById("menu").scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+// Banderita
+const lista = document.getElementById("idiomaLista");
+document.getElementById("idiomaBtn").addEventListener("click", e => { e.stopPropagation(); lista.classList.toggle("abierta"); });
+document.addEventListener("click", () => lista.classList.remove("abierta"));
+lista.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+  idioma = b.dataset.lang;
+  try { localStorage.setItem("rm_idioma", idioma); } catch(e){}
+  aplicarIdioma(); lista.classList.remove("abierta");
+}));
+
+// Formularios (todavía no guardan nada: muestran "próximamente")
+document.querySelectorAll(".formPronto").forEach(f => f.addEventListener("submit", e => {
+  e.preventDefault(); f.querySelector(".aviso").classList.add("ver");
+}));
+
+document.getElementById("anio").textContent = new Date().getFullYear();
+pintarRedes("redesInicio"); pintarRedes("redesPagina");
+aplicarIdioma(); mostrarPagina();
+window.addEventListener("hashchange", mostrarPagina);
+</script>
+</body>
+</html>
