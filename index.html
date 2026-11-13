@@ -5,194 +5,234 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Red Moon Online</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@700;900&family=Alegreya:wght@400;700&display=swap" rel="stylesheet">
 <style>
 /* =========================================================
    RED MOON ONLINE - estilos (colores principales aquí)
    ========================================================= */
 :root{
-  --rojo:#e3262b;        /* rojo luna */
-  --rojo-claro:#ff6b4a;
-  --piedra:#1b1416;      /* piedra oscura */
-  --piedra-2:#2a1f21;
-  --borde:#5a3b33;
-  --texto:#efe3d6;
-  --texto-suave:#b9a594;
-  --oro:#f2b54a;
+  --rojo:#d8352a;
+  --oro:#f2c46a;
+  --oro-osc:#b8862f;
+  --hueso:#efe4cc;
+  --madera:#6b4423;
+  --madera-osc:#3b2412;
+  --texto:#ecdfcb;
+  --texto-suave:#bba68a;
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{
-  background:#0b0809;
   color:var(--texto);
-  font-family:Inter,system-ui,sans-serif;
-  line-height:1.55;
+  font-family:Alegreya,Georgia,serif;font-size:17px;line-height:1.6;
+  background-color:#120c0a;
+  background-image:
+    radial-gradient(ellipse at 15% 20%,rgba(150,40,25,.10),transparent 45%),
+    radial-gradient(ellipse at 85% 70%,rgba(150,40,25,.08),transparent 45%),
+    repeating-linear-gradient(90deg,rgba(255,235,200,.015) 0 2px,transparent 2px 11px);
+  overflow-x:hidden;
 }
-a{color:var(--rojo-claro)}
+a{color:#ff8a6a}
 
-/* ---------- PORTADA (imagen de fondo arriba) ---------- */
+/* ---------- PORTADA (tu imagen de fondo) ---------- */
 .portada{
-  position:relative;
-  min-height:58vh;
+  position:relative;min-height:60vh;
   background:url("fondo.jpg") center top/cover no-repeat;
-  display:flex;flex-direction:column;justify-content:space-between;
+  display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;
 }
-.portada::after{ /* oscurece abajo para que se lea */
-  content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,rgba(0,0,0,0) 35%,rgba(11,8,9,.65) 80%,#0b0809 100%);
-  pointer-events:none;
+.portada::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,rgba(0,0,0,0) 30%,rgba(18,12,10,.55) 78%,#120c0a 100%);
 }
-.barra-top{
-  position:relative;z-index:3;
-  display:flex;justify-content:flex-end;align-items:center;gap:10px;
-  padding:12px 14px;
-}
-.titulo{
-  position:relative;z-index:2;text-align:center;padding:0 12px 26px;
-}
+.brasas{position:absolute;inset:0;z-index:1;pointer-events:none}
+.brasa{position:absolute;bottom:-10px;width:4px;height:4px;border-radius:50%;
+  background:#ff7a3a;box-shadow:0 0 6px 2px rgba(255,90,40,.7);
+  animation:sube linear infinite;opacity:0}
+@keyframes sube{0%{transform:translate(0,0);opacity:0}10%{opacity:1}100%{transform:translate(30px,-60vh);opacity:0}}
+
+.barra-top{position:relative;z-index:3;display:flex;justify-content:flex-end;align-items:center;gap:10px;padding:12px 14px}
+.titulo{position:relative;z-index:2;text-align:center;padding:0 12px 28px}
 .titulo h1{
-  font-family:Cinzel,serif;font-weight:900;margin:0;
-  font-size:clamp(34px,8vw,78px);letter-spacing:3px;
-  color:#fff;
-  text-shadow:0 0 18px rgba(227,38,43,.9),0 0 40px rgba(227,38,43,.55),0 4px 0 #3a0c0c;
+  font-family:"Cinzel Decorative",serif;font-weight:900;margin:0;line-height:1.05;
+  font-size:clamp(36px,9vw,84px);letter-spacing:2px;color:var(--oro);
+  text-shadow:0 0 22px rgba(216,53,42,.75),0 3px 0 #5a1208,0 6px 12px #000;
 }
-.titulo p{margin:6px 0 0;color:#f1d6c8;font-family:Cinzel,serif;letter-spacing:2px;font-size:clamp(12px,2.6vw,18px);text-shadow:0 2px 6px #000}
+.titulo p{margin:8px 0 0;color:var(--hueso);font-family:Cinzel,serif;letter-spacing:4px;
+  font-size:clamp(12px,2.8vw,18px);text-shadow:0 2px 6px #000}
 
-/* ---------- Banderita de idioma ---------- */
+/* ---------- Banderita ---------- */
 .idioma{position:relative}
-.idioma-btn{
-  background:rgba(20,12,13,.75);border:1px solid var(--borde);color:#fff;
-  border-radius:8px;padding:6px 10px;font-size:15px;cursor:pointer;
-  display:flex;align-items:center;gap:6px;
-}
-.idioma-lista{
-  position:absolute;right:0;top:110%;display:none;
-  background:var(--piedra);border:1px solid var(--borde);border-radius:8px;overflow:hidden;
-  box-shadow:0 8px 24px rgba(0,0,0,.6);min-width:150px;
-}
+.idioma-btn{background:rgba(25,15,10,.8);border:2px solid var(--madera);color:#fff;border-radius:8px;
+  padding:6px 10px;font-size:15px;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:Cinzel,serif}
+.idioma-lista{position:absolute;right:0;top:110%;display:none;background:#21150d;border:2px solid var(--madera);
+  border-radius:8px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.7);min-width:150px}
 .idioma-lista.abierta{display:block}
-.idioma-lista button{
-  display:flex;gap:8px;width:100%;background:none;border:0;color:var(--texto);
-  padding:10px 12px;font-size:15px;text-align:left;cursor:pointer;
-}
-.idioma-lista button:hover{background:var(--piedra-2)}
+.idioma-lista button{display:flex;gap:8px;width:100%;background:none;border:0;color:var(--texto);
+  padding:10px 12px;font-size:15px;text-align:left;cursor:pointer;font-family:Alegreya,serif}
+.idioma-lista button:hover{background:#3a2516}
 
-/* ---------- Botón Play for Free ---------- */
+/* ---------- Botón Play for Free (piedra con brillo rojo) ---------- */
 .btn-play{
-  font-family:Cinzel,serif;font-weight:800;letter-spacing:1px;
-  background:linear-gradient(180deg,#ff4a3d,#a80f14);
-  color:#fff;text-decoration:none;border:1px solid #ff8a70;
-  padding:9px 16px;border-radius:8px;font-size:15px;
-  box-shadow:0 0 14px rgba(227,38,43,.7),inset 0 1px 0 rgba(255,255,255,.35);
-  white-space:nowrap;
+  font-family:Cinzel,serif;font-weight:900;letter-spacing:1px;text-decoration:none;color:#fff;white-space:nowrap;
+  padding:10px 18px;border-radius:6px;font-size:15px;
+  background:linear-gradient(180deg,#c9372b,#7d130d);
+  border:2px solid var(--hueso);
+  box-shadow:0 0 0 2px #3b0b06,0 0 16px rgba(216,53,42,.8);
+  text-shadow:0 2px 0 #3b0b06;
 }
-.btn-play:hover{filter:brightness(1.12)}
+.btn-play:hover{filter:brightness(1.15)}
 
-/* ---------- MENÚ de piedra ---------- */
+/* ---------- MENÚ: viga de madera con huesos ---------- */
 nav.menu{
-  position:relative;z-index:4;
-  margin:0 auto;max-width:1100px;
+  position:relative;z-index:4;margin:0 auto;max-width:1120px;
+  display:flex;flex-wrap:wrap;justify-content:center;gap:2px;padding:8px 50px;
   background:
-    radial-gradient(circle at 20% 30%,rgba(255,255,255,.04) 0 2px,transparent 3px),
-    radial-gradient(circle at 70% 60%,rgba(0,0,0,.25) 0 3px,transparent 4px),
-    linear-gradient(180deg,#3a2c2a,#221819 55%,#181112);
-  background-size:38px 38px,52px 52px,auto;
-  border:2px solid #120c0c;
-  outline:1px solid var(--borde);
-  border-radius:10px;
-  box-shadow:0 0 22px rgba(227,38,43,.35),inset 0 1px 0 rgba(255,255,255,.08);
-  display:flex;flex-wrap:wrap;justify-content:center;
-  padding:4px 6px;
+    linear-gradient(180deg,rgba(255,255,255,.07),rgba(0,0,0,.25)),
+    repeating-linear-gradient(0deg,#33200f 0 3px,#3e2714 3px 7px,#2a190b 7px 9px,#372312 9px 13px);
+  border-top:3px solid #120a04;border-bottom:3px solid #120a04;
+  box-shadow:0 6px 18px rgba(0,0,0,.6),inset 0 0 0 2px rgba(0,0,0,.25);
 }
+nav.menu::before,nav.menu::after{
+  content:"";position:absolute;top:50%;width:46px;height:22px;margin-top:-11px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 46 22'%3E%3Cg fill='%23efe4cc' stroke='%237a6548' stroke-width='1.2'%3E%3Ccircle cx='6' cy='6' r='5'/%3E%3Ccircle cx='6' cy='16' r='5'/%3E%3Ccircle cx='40' cy='6' r='5'/%3E%3Ccircle cx='40' cy='16' r='5'/%3E%3Crect x='5' y='7' width='36' height='8' rx='4' stroke='none'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;
+}
+nav.menu::before{left:2px}
+nav.menu::after{right:2px}
 nav.menu a{
-  position:relative;
-  font-family:Cinzel,serif;font-weight:800;
-  color:#e9dccd;text-decoration:none;
-  padding:10px 14px;font-size:15px;letter-spacing:.5px;
-  text-shadow:0 2px 0 #000;
+  display:flex;align-items:center;gap:6px;
+  font-family:Cinzel,serif;font-weight:900;color:#f1e3cc;text-decoration:none;
+  padding:6px 10px;font-size:14px;letter-spacing:.5px;text-shadow:0 2px 0 #1b0e05;
+  border-radius:6px;transition:background .2s;
 }
-nav.menu a + a::before{ /* separador */
-  content:"";position:absolute;left:-1px;top:24%;height:52%;width:3px;
-  background:linear-gradient(180deg,#6b5b55,#2c2223);border-radius:2px;
-}
-nav.menu a:hover{color:#fff}
-nav.menu a.activo{color:var(--rojo-claro);text-shadow:0 0 10px rgba(227,38,43,.9),0 2px 0 #000}
-nav.menu a.activo::after{
-  content:"";position:absolute;left:14px;right:14px;bottom:5px;height:2px;
-  background:var(--rojo);box-shadow:0 0 8px var(--rojo);
-}
+nav.menu a svg{width:30px;height:30px;flex:none;filter:drop-shadow(0 2px 0 rgba(0,0,0,.5))}
+nav.menu a:hover{background:rgba(0,0,0,.25)}
+nav.menu a.activo{color:var(--oro);background:rgba(0,0,0,.35);box-shadow:inset 0 0 0 1px rgba(242,196,106,.5)}
+nav.menu a.activo svg{animation:salto .6s ease-in-out infinite alternate}
+@keyframes salto{to{transform:translateY(-3px) rotate(-4deg)}}
+
+/* animaciones de los iconos */
+.llama{transform-box:fill-box;transform-origin:50% 100%;animation:llama .35s ease-in-out infinite alternate}
+@keyframes llama{to{transform:scaleY(.86) scaleX(1.06)}}
+.parpadea{animation:parpadea 1.4s ease-in-out infinite}
+@keyframes parpadea{0%,100%{opacity:.45}50%{opacity:1}}
+.flota{animation:flota .8s ease-in-out infinite alternate}
+@keyframes flota{to{transform:translateY(-2px)}}
+.ala-lenta{transform-box:fill-box;transform-origin:30% 100%;animation:alalenta 1.2s ease-in-out infinite alternate}
+@keyframes alalenta{to{transform:scaleY(.9) rotate(-2deg)}}
+.humo{animation:humo 1.6s ease-in-out infinite}
+@keyframes humo{0%{transform:translateY(3px);opacity:.5}100%{transform:translateY(-3px);opacity:1}}
 
 /* ---------- Contenido ---------- */
-main{max-width:1100px;margin:22px auto 40px;padding:0 14px}
+main{max-width:1120px;margin:26px auto 40px;padding:0 14px}
 .pagina{display:none}
-.pagina.visible{display:block}
+.pagina.visible{display:block;animation:aparece .45s ease-out}
+@keyframes aparece{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
+/* ---------- CAJAS: marco de madera con huesos en las esquinas ---------- */
 .caja{
-  background:linear-gradient(180deg,rgba(42,31,33,.92),rgba(24,17,18,.95));
-  border:1px solid var(--borde);border-radius:12px;
-  box-shadow:0 0 0 1px #0c0809,0 10px 30px rgba(0,0,0,.45);
-  padding:18px;margin-bottom:18px;
+  position:relative;padding:22px 20px 20px;margin:0 0 26px;border-radius:4px;
+  background:
+    radial-gradient(ellipse at 50% 0%,rgba(110,60,30,.35),transparent 70%),
+    linear-gradient(180deg,#24180f,#1a110b);
+  border:7px solid transparent;
+  border-image:repeating-linear-gradient(45deg,#3a2414 0 5px,#2c1a0d 5px 8px,#4a2e18 8px 13px,#1e1108 13px 15px) 7;
+  box-shadow:0 0 0 2px #0c0603,0 12px 28px rgba(0,0,0,.55),inset 0 0 0 1px rgba(242,196,106,.18),inset 0 0 30px rgba(0,0,0,.5);
+}
+.caja::before{
+  content:"";position:absolute;inset:-22px;pointer-events:none;
+  --hueso:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg fill='%23efe4cc' stroke='%237a6548' stroke-width='1.4'%3E%3Cg transform='rotate(45 20 20)'%3E%3Ccircle cx='6' cy='16' r='4'/%3E%3Ccircle cx='6' cy='24' r='4'/%3E%3Ccircle cx='34' cy='16' r='4'/%3E%3Ccircle cx='34' cy='24' r='4'/%3E%3Crect x='5' y='17' width='30' height='6' rx='3' stroke='none'/%3E%3C/g%3E%3Cg transform='rotate(-45 20 20)'%3E%3Ccircle cx='6' cy='16' r='4'/%3E%3Ccircle cx='6' cy='24' r='4'/%3E%3Ccircle cx='34' cy='16' r='4'/%3E%3Ccircle cx='34' cy='24' r='4'/%3E%3Crect x='5' y='17' width='30' height='6' rx='3' stroke='none'/%3E%3C/g%3E%3C/g%3E%3Ccircle cx='20' cy='20' r='4' fill='%23d8352a' stroke='%233b0b06'/%3E%3C/svg%3E");
+  background:var(--hueso) left top/38px no-repeat,var(--hueso) right top/38px no-repeat,
+             var(--hueso) left bottom/38px no-repeat,var(--hueso) right bottom/38px no-repeat;
 }
 .caja h2{
-  font-family:Cinzel,serif;margin:0 0 12px;font-size:20px;color:#fff;
-  display:flex;align-items:center;gap:10px;
-  border-bottom:1px solid #3d2b29;padding-bottom:10px;
+  font-family:Cinzel,serif;font-weight:900;margin:0 0 14px;font-size:21px;color:var(--oro);
+  display:flex;align-items:center;justify-content:center;gap:12px;text-align:center;
+  text-shadow:0 2px 0 #000;
 }
-.caja h2 .punto{width:10px;height:10px;border-radius:50%;background:var(--rojo);box-shadow:0 0 10px var(--rojo)}
-.grid-inicio{display:grid;grid-template-columns:1fr 300px;gap:18px}
+.caja h2::before,.caja h2::after{
+  content:"";flex:1;max-width:120px;height:10px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 10'%3E%3Cpath d='M0 5 H104' stroke='%23b8862f' stroke-width='2'/%3E%3Cpath d='M104 5 L112 1 L120 5 L112 9 Z' fill='%23d8352a'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+}
+.caja h2::before{transform:scaleX(-1)}
+.grid-inicio{display:grid;grid-template-columns:1fr 310px;gap:22px}
 @media (max-width:820px){.grid-inicio{grid-template-columns:1fr}}
 
-.entrada{padding:12px 0;border-bottom:1px dashed #3d2b29}
+.entrada{padding:12px 0;border-bottom:1px solid rgba(184,134,47,.25)}
 .entrada:last-child{border-bottom:0}
-.entrada h3{margin:0 0 4px;font-family:Cinzel,serif;font-size:17px;color:var(--oro)}
-.fecha{font-size:12px;color:var(--texto-suave);text-transform:uppercase;letter-spacing:1px}
+.entrada h3{margin:4px 0;font-family:Cinzel,serif;font-size:18px;color:#ffd98a}
+.fecha{font-size:13px;color:var(--texto-suave);letter-spacing:1px;text-transform:uppercase}
 .entrada p{margin:6px 0 0;white-space:pre-line}
-.etiqueta{display:inline-block;font-size:12px;padding:2px 8px;border-radius:20px;background:rgba(227,38,43,.18);color:#ff9a86;border:1px solid rgba(227,38,43,.5);margin-right:6px}
+.etiqueta{display:inline-block;font-family:Cinzel,serif;font-size:12px;padding:2px 10px;margin-right:8px;
+  background:#5a1208;color:#ffd9c9;border:1px solid #d8352a;border-radius:3px}
 
 .btn{
-  display:block;text-align:center;text-decoration:none;cursor:pointer;
-  font-family:Cinzel,serif;font-weight:800;font-size:16px;letter-spacing:1px;
-  padding:12px;border-radius:10px;color:#fff;border:1px solid #ff8a70;
-  background:linear-gradient(180deg,#e2342c,#8c0d11);
-  box-shadow:0 0 14px rgba(227,38,43,.5);
-  width:100%;
+  display:block;width:100%;text-align:center;text-decoration:none;cursor:pointer;
+  font-family:Cinzel,serif;font-weight:900;font-size:16px;letter-spacing:1px;color:#fff;
+  padding:12px;border-radius:6px;border:2px solid var(--hueso);
+  background:linear-gradient(180deg,#c9372b,#7d130d);
+  box-shadow:0 0 0 2px #3b0b06,0 0 14px rgba(216,53,42,.5);text-shadow:0 2px 0 #3b0b06;
 }
-.btn.secundario{background:linear-gradient(180deg,#3b2c2b,#211819);border-color:var(--borde);box-shadow:none}
-.btn + .btn{margin-top:10px}
+.btn:hover{filter:brightness(1.12)}
+.btn.secundario{background:repeating-linear-gradient(0deg,#5b3a1f 0 3px,#6a4526 3px 7px,#4f321a 7px 9px);
+  border-color:#8a6a45;box-shadow:0 0 0 2px #1d1007}
+.btn + .btn{margin-top:12px}
 
 .redes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.red{
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  text-decoration:none;color:var(--texto);font-size:12px;
-  background:#1a1213;border:1px solid var(--borde);border-radius:10px;padding:12px 4px;
-}
-.red:hover{border-color:var(--rojo);box-shadow:0 0 10px rgba(227,38,43,.45)}
-.red svg{width:28px;height:28px;fill:var(--rojo-claro)}
+.red{display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none;color:var(--texto);
+  font-size:13px;font-family:Cinzel,serif;background:#140d08;border:2px solid #2e1b0c;border-radius:6px;padding:12px 4px}
+.red:hover{border-color:var(--rojo);box-shadow:0 0 12px rgba(216,53,42,.5)}
+.red svg{width:28px;height:28px;fill:var(--oro)}
+.red-pronto{opacity:.5;cursor:default}
+.red-pronto:hover{border-color:#2e1b0c;box-shadow:none}
+.red-pronto small{font-size:11px;color:var(--texto-suave);font-family:Alegreya,serif}
 
-.tarjetas{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-.tarjeta{background:#1a1213;border:1px solid var(--borde);border-radius:12px;padding:18px;text-align:center}
-.tarjeta h3{font-family:Cinzel,serif;margin:6px 0;color:#fff}
+.cabecera-arte{display:flex;justify-content:center;margin:-6px 0 6px}
+.cabecera-arte svg{width:210px;height:auto}
+.tarjetas{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.tarjeta{text-align:center;padding:18px;background:#140d08;border:2px solid #2e1b0c;border-radius:6px}
+.tarjeta h3{font-family:Cinzel,serif;margin:6px 0;color:var(--oro)}
 .tarjeta p{color:var(--texto-suave);margin:0 0 12px}
-.icono-grande{font-size:38px}
-.pronto{display:inline-block;font-family:Cinzel,serif;font-weight:800;color:var(--oro);border:1px solid var(--oro);border-radius:20px;padding:3px 12px;font-size:13px}
+.tarjeta svg{width:56px;height:56px}
+.pronto{display:inline-block;font-family:Cinzel,serif;font-weight:900;color:var(--oro);
+  border:1px solid var(--oro-osc);border-radius:3px;padding:3px 12px;font-size:13px;background:rgba(0,0,0,.3)}
 
 form .campo{margin-bottom:12px}
-form label{display:block;font-size:13px;color:var(--texto-suave);margin-bottom:4px}
-form input{
-  width:100%;padding:11px 12px;border-radius:8px;border:1px solid var(--borde);
-  background:#120c0d;color:#fff;font-size:16px;
-}
-form input:focus{outline:none;border-color:var(--rojo);box-shadow:0 0 0 2px rgba(227,38,43,.3)}
-.aviso{margin-top:10px;padding:10px;border-radius:8px;background:rgba(242,181,74,.12);border:1px solid rgba(242,181,74,.5);color:#f6d79b;display:none;font-size:14px}
+form label{display:block;font-size:14px;color:var(--texto-suave);margin-bottom:4px;font-family:Cinzel,serif}
+form input{width:100%;padding:11px 12px;border-radius:4px;border:2px solid #4a2d15;background:#0f0906;color:#fff;font-size:16px;font-family:Alegreya,serif}
+form input:focus{outline:none;border-color:var(--oro-osc);box-shadow:0 0 0 2px rgba(242,196,106,.25)}
+.aviso{margin-top:10px;padding:10px;border-radius:4px;background:rgba(242,196,106,.1);border:1px solid var(--oro-osc);color:#f6d79b;display:none;font-size:15px}
 .aviso.ver{display:block}
-.dos-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.dos-col{display:grid;grid-template-columns:1fr 1fr;gap:22px}
 @media (max-width:720px){.dos-col{grid-template-columns:1fr}}
 
-footer{text-align:center;color:#7d6a5f;font-size:13px;padding:24px 10px 34px;border-top:1px solid #241a1a}
-@media (max-width:520px){
-  nav.menu a{padding:9px 10px;font-size:13px}
+footer{text-align:center;color:#8a735c;font-size:14px;padding:24px 10px 34px;border-top:2px solid #2a1709;font-family:Cinzel,serif}
+
+/* ---------- TRANSICIÓN: dragón dorado + luna roja ---------- */
+#transicion{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden;display:none}
+#transicion.activa{display:block}
+.luna-flash{position:absolute;left:50%;top:45%;width:240px;height:240px;margin:-120px 0 0 -120px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,90,60,.85) 0%,rgba(216,53,42,.55) 35%,rgba(120,10,5,0) 70%);
+  animation:flash .9s ease-out forwards}
+@keyframes flash{0%{transform:scale(.2);opacity:0}30%{opacity:1}100%{transform:scale(4.5);opacity:0}}
+.dragon{position:absolute;top:26%;left:0;width:min(85vw,440px);overflow:visible;animation:vuela 1s ease-in-out forwards}
+@keyframes vuela{
+  0%{transform:translate(-110%,40px) rotate(-6deg)}
+  50%{transform:translate(calc(50vw - 50%),-20px) rotate(2deg)}
+  100%{transform:translate(110vw,-60px) rotate(-8deg)}
+}
+.ala{transform-box:fill-box;transform-origin:85% 100%;animation:aleteo .22s ease-in-out infinite alternate}
+.ala-lejos{animation-delay:.06s}
+@keyframes aleteo{from{transform:scaleY(1)}to{transform:scaleY(-.45)}}
+.fuego{transform-box:fill-box;transform-origin:0 50%;animation:fuego .12s ease-in-out infinite alternate}
+@keyframes fuego{to{transform:scaleX(1.25)}}
+@media (prefers-reduced-motion:reduce){#transicion{display:none!important}}
+
+@media (max-width:560px){
+  nav.menu{padding:6px 44px}
+  nav.menu a{padding:5px 7px;font-size:12px}
+  nav.menu a svg{width:24px;height:24px}
   .btn-play{padding:8px 12px;font-size:13px}
-  .portada{min-height:44vh}
+  .portada{min-height:46vh}
 }
 </style>
 </head>
@@ -200,8 +240,8 @@ footer{text-align:center;color:#7d6a5f;font-size:13px;padding:24px 10px 34px;bor
 
 <!-- ================= PORTADA ================= -->
 <header class="portada">
+  <div class="brasas" id="brasas"></div>
   <div class="barra-top">
-    <!-- Banderita de idioma: al tocarla salen los otros idiomas -->
     <div class="idioma">
       <button class="idioma-btn" id="idiomaBtn" aria-label="Language"><span id="banderaActual">🇺🇸</span> <span id="codigoActual">EN</span> ▾</button>
       <div class="idioma-lista" id="idiomaLista">
@@ -210,27 +250,26 @@ footer{text-align:center;color:#7d6a5f;font-size:13px;padding:24px 10px 34px;bor
         <button data-lang="pt">🇧🇷 Português</button>
       </div>
     </div>
-    <!-- Botón Play for Free: lleva a Descargas -->
     <a class="btn-play" href="#descargar" data-t="play"></a>
   </div>
   <div class="titulo">
-    <h1>RED MOON ONLINE</h1>
+    <h1>Red Moon Online</h1>
     <p data-t="lema"></p>
   </div>
 </header>
 
-<!-- ================= MENÚ ================= -->
+<!-- ================= MENÚ (los iconos se ponen solos desde ICONOS) ================= -->
 <nav class="menu" id="menu">
-  <a href="#inicio" data-t="m_inicio"></a>
-  <a href="#noticias" data-t="m_noticias"></a>
-  <a href="#cuenta" data-t="m_cuenta"></a>
-  <a href="#wiki" data-t="m_wiki"></a>
-  <a href="#market" data-t="m_market"></a>
-  <a href="#nosotros" data-t="m_nosotros"></a>
-  <a href="#soporte" data-t="m_soporte"></a>
-  <a href="#ranking" data-t="m_ranking"></a>
-  <a href="#reglas" data-t="m_reglas"></a>
-  <a href="#redes" data-t="m_redes"></a>
+  <a href="#inicio" data-i="inicio"><span data-t="m_inicio"></span></a>
+  <a href="#noticias" data-i="noticias"><span data-t="m_noticias"></span></a>
+  <a href="#cuenta" data-i="cuenta"><span data-t="m_cuenta"></span></a>
+  <a href="#wiki" data-i="wiki"><span data-t="m_wiki"></span></a>
+  <a href="#market" data-i="market"><span data-t="m_market"></span></a>
+  <a href="#nosotros" data-i="nosotros"><span data-t="m_nosotros"></span></a>
+  <a href="#soporte" data-i="soporte"><span data-t="m_soporte"></span></a>
+  <a href="#ranking" data-i="ranking"><span data-t="m_ranking"></span></a>
+  <a href="#reglas" data-i="reglas"><span data-t="m_reglas"></span></a>
+  <a href="#redes" data-i="redes"><span data-t="m_redes"></span></a>
 </nav>
 
 <main>
@@ -239,25 +278,15 @@ footer{text-align:center;color:#7d6a5f;font-size:13px;padding:24px 10px 34px;bor
   <section class="pagina" id="p-inicio">
     <div class="grid-inicio">
       <div>
-        <div class="caja">
-          <h2><span class="punto"></span><span data-t="eventos"></span></h2>
-          <div id="listaEventosInicio"></div>
-        </div>
-        <div class="caja">
-          <h2><span class="punto"></span><span data-t="m_noticias"></span></h2>
-          <div id="listaNoticiasInicio"></div>
-        </div>
+        <div class="caja"><h2 data-t="eventos"></h2><div id="listaEventosInicio"></div></div>
+        <div class="caja"><h2 data-t="m_noticias"></h2><div id="listaNoticiasInicio"></div></div>
       </div>
       <aside>
-        <div class="caja">
-          <h2><span class="punto"></span><span data-t="m_cuenta"></span></h2>
+        <div class="caja"><h2 data-t="m_cuenta"></h2>
           <a class="btn" href="#cuenta" data-t="ir_cuenta"></a>
           <a class="btn secundario" href="#descargar" data-t="preregistro"></a>
         </div>
-        <div class="caja">
-          <h2><span class="punto"></span><span data-t="m_redes"></span></h2>
-          <div class="redes" id="redesInicio"></div>
-        </div>
+        <div class="caja"><h2 data-t="m_redes"></h2><div class="redes" id="redesInicio"></div></div>
       </aside>
     </div>
   </section>
@@ -265,7 +294,8 @@ footer{text-align:center;color:#7d6a5f;font-size:13px;padding:24px 10px 34px;bor
   <!-- ===== NOTICIAS ===== -->
   <section class="pagina" id="p-noticias">
     <div class="caja">
-      <h2><span class="punto"></span><span data-t="m_noticias"></span></h2>
+      <div class="cabecera-arte" id="arteNoticias"></div>
+      <h2 data-t="m_noticias"></h2>
       <div id="listaNoticias"></div>
     </div>
   </section>
@@ -273,8 +303,7 @@ footer{text-align:center;color:#7d6a5f;font-size:13px;padding:24px 10px 34px;bor
   <!-- ===== CUENTA ===== -->
   <section class="pagina" id="p-cuenta">
     <div class="dos-col">
-      <div class="caja">
-        <h2><span class="punto"></span><span data-t="entrar"></span></h2>
+      <div class="caja"><h2 data-t="entrar"></h2>
         <form class="formPronto">
           <div class="campo"><label data-t="usuario"></label><input type="text" autocomplete="username"></div>
           <div class="campo"><label data-t="clave"></label><input type="password" autocomplete="current-password"></div>
@@ -282,8 +311,7 @@ footer{text-align:center;color:#7d6a5f;font-size:13px;padding:24px 10px 34px;bor
           <div class="aviso" data-t="cuentas_pronto"></div>
         </form>
       </div>
-      <div class="caja">
-        <h2><span class="punto"></span><span data-t="registrar"></span></h2>
+      <div class="caja"><h2 data-t="registrar"></h2>
         <form class="formPronto">
           <div class="campo"><label data-t="usuario"></label><input type="text" autocomplete="username"></div>
           <div class="campo"><label data-t="correo"></label><input type="email" autocomplete="email"></div>
@@ -297,64 +325,57 @@ footer{text-align:center;color:#7d6a5f;font-size:13px;padding:24px 10px 34px;bor
 
   <!-- ===== WIKI ===== -->
   <section class="pagina" id="p-wiki">
-    <div class="caja"><h2><span class="punto"></span><span data-t="m_wiki"></span></h2>
-      <p data-t="wiki_txt"></p><span class="pronto" data-t="pronto"></span></div>
+    <div class="caja"><h2 data-t="m_wiki"></h2><p data-t="wiki_txt"></p><span class="pronto" data-t="pronto"></span></div>
   </section>
 
   <!-- ===== MARKET ===== -->
   <section class="pagina" id="p-market">
     <div class="caja">
-      <h2><span class="punto"></span><span data-t="m_market"></span></h2>
+      <div class="cabecera-arte" id="arteMarket"></div>
+      <h2 data-t="m_market"></h2>
       <div class="tarjetas">
-        <div class="tarjeta"><div class="icono-grande">💰</div><h3>Shop</h3><p data-t="shop_txt"></p><span class="pronto" data-t="pronto"></span></div>
-        <div class="tarjeta"><div class="icono-grande">⚔️</div><h3 data-t="mercado_pj"></h3><p data-t="mercado_pj_txt"></p><span class="pronto" data-t="pronto"></span></div>
-        <div class="tarjeta"><div class="icono-grande">🌑</div><h3>Coming soon</h3><p data-t="especiales_txt"></p><span class="pronto" data-t="pronto"></span></div>
+        <div class="tarjeta"><span data-ic="oro"></span><h3>Shop</h3><p data-t="shop_txt"></p><span class="pronto" data-t="pronto"></span></div>
+        <div class="tarjeta"><span data-ic="cuenta"></span><h3 data-t="mercado_pj"></h3><p data-t="mercado_pj_txt"></p><span class="pronto" data-t="pronto"></span></div>
+        <div class="tarjeta"><span data-ic="soporte"></span><h3>Coming soon</h3><p data-t="especiales_txt"></p><span class="pronto" data-t="pronto"></span></div>
       </div>
     </div>
   </section>
 
   <!-- ===== QUIÉNES SOMOS ===== -->
   <section class="pagina" id="p-nosotros">
-    <div class="caja"><h2><span class="punto"></span><span data-t="m_nosotros"></span></h2>
-      <p data-t="nosotros_txt"></p></div>
+    <div class="caja"><h2 data-t="m_nosotros"></h2><p data-t="nosotros_txt"></p></div>
   </section>
 
   <!-- ===== SOPORTE ===== -->
   <section class="pagina" id="p-soporte">
-    <div class="caja"><h2><span class="punto"></span><span data-t="m_soporte"></span></h2>
-      <p data-t="soporte_txt"></p><span class="pronto" data-t="pronto"></span></div>
+    <div class="caja"><h2 data-t="m_soporte"></h2><p data-t="soporte_txt"></p><span class="pronto" data-t="pronto"></span></div>
   </section>
 
   <!-- ===== RANKING ===== -->
   <section class="pagina" id="p-ranking">
-    <div class="caja"><h2><span class="punto"></span><span data-t="m_ranking"></span></h2>
-      <p data-t="ranking_txt"></p><span class="pronto" data-t="pronto"></span></div>
+    <div class="caja"><h2 data-t="m_ranking"></h2><p data-t="ranking_txt"></p><span class="pronto" data-t="pronto"></span></div>
   </section>
 
   <!-- ===== REGLAS ===== -->
   <section class="pagina" id="p-reglas">
-    <div class="caja"><h2><span class="punto"></span><span data-t="m_reglas"></span></h2>
-      <p data-t="reglas_txt"></p><span class="pronto" data-t="pronto"></span></div>
+    <div class="caja"><h2 data-t="m_reglas"></h2><p data-t="reglas_txt"></p><span class="pronto" data-t="pronto"></span></div>
   </section>
 
   <!-- ===== REDES ===== -->
   <section class="pagina" id="p-redes">
-    <div class="caja"><h2><span class="punto"></span><span data-t="m_redes"></span></h2>
-      <div class="redes" id="redesPagina"></div></div>
+    <div class="caja"><h2 data-t="m_redes"></h2><div class="redes" id="redesPagina"></div></div>
   </section>
 
-  <!-- ===== DESCARGAR / PRE-REGISTRO (botón Play for Free) ===== -->
+  <!-- ===== DESCARGAR / PRE-REGISTRO ===== -->
   <section class="pagina" id="p-descargar">
     <div class="dos-col">
-      <div class="caja">
-        <h2><span class="punto"></span><span data-t="descargar"></span></h2>
+      <div class="caja"><h2 data-t="descargar"></h2>
         <p data-t="descargar_txt"></p>
         <!-- Cuando tengas los links de las tiendas, cámbialos aquí -->
         <a class="btn secundario" href="#descargar">App Store — <span data-t="pronto"></span></a>
         <a class="btn secundario" href="#descargar">Google Play — <span data-t="pronto"></span></a>
       </div>
-      <div class="caja">
-        <h2><span class="punto"></span><span data-t="preregistro"></span></h2>
+      <div class="caja"><h2 data-t="preregistro"></h2>
         <form class="formPronto">
           <div class="campo"><label data-t="correo"></label><input type="email" autocomplete="email"></div>
           <div class="campo"><label data-t="nombre_pj"></label><input type="text"></div>
@@ -369,24 +390,42 @@ footer{text-align:center;color:#7d6a5f;font-size:13px;padding:24px 10px 34px;bor
 
 <footer>© <span id="anio"></span> Red Moon Online — rmonlinemmo.com</footer>
 
+<!-- Transición al cambiar de menú: dragón dorado + luna roja -->
+<div id="transicion">
+  <div class="luna-flash"></div>
+  <svg class="dragon" viewBox="0 0 320 150" aria-hidden="true">
+    <g class="ala ala-lejos"><path d="M150 78 L132 30 L66 8 C80 22 84 34 82 44 C94 38 106 40 112 50 C118 44 128 46 132 54 C134 64 130 72 124 82 Z" fill="#7a2c14"/><path d="M132 30 L66 8 M132 30 L82 44 M132 30 L112 50" stroke="#3b1a08" stroke-width="2"/></g>
+    <path d="M128 86 C100 90 74 100 50 104 C34 106 20 102 10 96 C22 104 36 106 50 102 C76 96 102 88 128 82 Z" fill="#8a5a1e"/>
+    <path d="M10 96 L0 86 L6 98 L0 108 Z" fill="#5a3a12"/>
+    <path d="M120 80 C140 70 172 70 192 76 C200 79 204 85 200 90 C184 95 152 95 130 90 Z" fill="#b8862f"/>
+    <path d="M136 90 C156 94 178 94 196 88" stroke="#e8c27a" stroke-width="3" fill="none" opacity=".7"/>
+    <path d="M190 80 C206 72 216 58 230 54 C238 52 244 54 248 58 C238 60 228 68 218 78 C208 88 200 90 192 90 Z" fill="#a8782a"/>
+    <path d="M140 72 l4 -8 4 7 M156 70 l4 -9 4 8 M172 71 l4 -8 4 8 M200 72 l5 -8 2 9 M214 62 l5 -7 1 9 M226 55 l5 -6 0 8" fill="#5a3a12"/>
+    <path d="M242 52 L272 56 L290 62 L272 66 L258 68 L246 66 C240 64 238 56 242 52Z" fill="#c8963a"/>
+    <path d="M250 66 L280 66 L264 74 Z" fill="#8a5a1e"/>
+    <path d="M246 54 L230 38 L250 51 Z M254 53 L246 34 L260 51 Z" fill="#e8d3a8"/>
+    <circle cx="262" cy="59" r="2.6" fill="#ffd34d"/>
+    <g class="fuego"><path d="M290 63 C305 58 318 60 330 52 C322 64 312 70 290 66 Z" fill="#ff7a2a"/><path d="M290 64 C302 62 310 62 318 58 C312 66 302 68 290 65 Z" fill="#ffd34d"/></g>
+    <path d="M150 90 L146 106 L136 112 M178 90 L184 106 L194 110" stroke="#5a3a12" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <g class="ala"><path d="M170 78 L156 26 L84 2 C98 18 102 30 100 42 C112 36 124 38 130 48 C136 42 146 44 150 52 C154 62 150 72 144 84 Z" fill="#c2581f"/><path d="M156 26 L84 2 M156 26 L100 42 M156 26 L130 48 M156 26 L150 52" stroke="#5a2a0c" stroke-width="2.2"/><path d="M170 78 L156 26" stroke="#5a3a12" stroke-width="4" stroke-linecap="round"/></g>
+  </svg>
+</div>
+
 <script>
 /* =========================================================
-   1) LINKS DE REDES — pon aquí tus links cuando los tengas
-      (deja "#" mientras no exista)
+   1) LINKS DE REDES — pon aquí tus links (deja "" vacío = sale "Próximamente")
    ========================================================= */
 const REDES = [
-  { nombre:"Discord",   link:"#" },
-  { nombre:"Instagram", link:"#" },
-  { nombre:"Facebook",  link:"#" },
-  { nombre:"TikTok",    link:"#" },
-  { nombre:"YouTube",   link:"#" },
-  { nombre:"X",         link:"#" }
+  { nombre:"Discord",   link:"https://discord.gg/8YMrttzGvf" },
+  { nombre:"Instagram", link:"https://www.instagram.com/rmonlinemmo/" },
+  { nombre:"Facebook",  link:"" },
+  { nombre:"TikTok",    link:"" },
+  { nombre:"YouTube",   link:"" },
+  { nombre:"X",         link:"" }
 ];
 
 /* =========================================================
-   2) EVENTOS — para añadir uno, copia un bloque { ... } y
-      ponlo ARRIBA (el primero sale primero).
-      Escribe el texto en los 3 idiomas: en / es / pt
+   2) EVENTOS — copia un bloque { ... } y ponlo ARRIBA para añadir uno
    ========================================================= */
 const EVENTOS = [
   {
@@ -402,8 +441,7 @@ const EVENTOS = [
 ];
 
 /* =========================================================
-   3) NOTICIAS — igual que los eventos. La primera de la lista
-      es la más nueva y sale en Inicio.
+   3) NOTICIAS — la primera de la lista es la más nueva
    ========================================================= */
 const NOTICIAS = [
   {
@@ -419,20 +457,17 @@ const NOTICIAS = [
 ];
 
 /* =========================================================
-   4) TEXTOS DE LA PÁGINA EN LOS 3 IDIOMAS
+   4) TEXTOS EN LOS 3 IDIOMAS
    ========================================================= */
 const T = {
-  en:{
-    play:"Play for Free", lema:"Rise under the Red Moon",
+  en:{ play:"Play for Free", lema:"Rise under the Red Moon",
     m_inicio:"Home", m_noticias:"News", m_cuenta:"Account", m_wiki:"Wiki", m_market:"Market",
     m_nosotros:"About Us", m_soporte:"Support", m_ranking:"Ranking", m_reglas:"Rules", m_redes:"Socials",
     eventos:"Events", ir_cuenta:"Account", preregistro:"Pre-register",
     entrar:"Log in", registrar:"Sign up", usuario:"Username", clave:"Password", correo:"Email",
-    cuentas_pronto:"Accounts will open soon. Stay tuned!",
-    pronto:"Coming soon",
+    cuentas_pronto:"Accounts will open soon. Stay tuned!", pronto:"Coming soon",
     wiki_txt:"The game guide: classes, maps, monsters, bosses and items.",
-    shop_txt:"Buy the in-game currency.",
-    mercado_pj:"Character Market", mercado_pj_txt:"Buy and sell characters safely and officially.",
+    shop_txt:"Buy the in-game currency.", mercado_pj:"Character Market", mercado_pj_txt:"Buy and sell characters safely and officially.",
     especiales_txt:"Special items will be sold here.",
     nosotros_txt:"We are the Red Moon team. More about us coming soon.",
     soporte_txt:"Need help? The support center opens soon.",
@@ -440,19 +475,15 @@ const T = {
     reglas_txt:"The game rules will be published here.",
     descargar:"Download", descargar_txt:"Red Moon Online is coming soon. Download links will appear here at launch.",
     nombre_pj:"Character name (optional)", preregistrarme:"Pre-register me",
-    prereg_pronto:"Pre-registration opens very soon. Thank you for your interest!"
-  },
-  es:{
-    play:"Juega gratis", lema:"Levántate bajo la Luna Roja",
+    prereg_pronto:"Pre-registration opens very soon. Thank you for your interest!" },
+  es:{ play:"Juega gratis", lema:"Levántate bajo la Luna Roja",
     m_inicio:"Inicio", m_noticias:"Noticias", m_cuenta:"Cuenta", m_wiki:"Wiki", m_market:"Market",
     m_nosotros:"Quiénes somos", m_soporte:"Soporte", m_ranking:"Ranking", m_reglas:"Reglas", m_redes:"Redes",
     eventos:"Eventos", ir_cuenta:"Cuenta", preregistro:"Pre-registro",
     entrar:"Ingresar", registrar:"Registrarse", usuario:"Usuario", clave:"Contraseña", correo:"Correo",
-    cuentas_pronto:"Las cuentas abren pronto. ¡Mantente atento!",
-    pronto:"Próximamente",
+    cuentas_pronto:"Las cuentas abren pronto. ¡Mantente atento!", pronto:"Próximamente",
     wiki_txt:"La guía del juego: clases, mapas, monstruos, jefes e items.",
-    shop_txt:"Compra la moneda del juego.",
-    mercado_pj:"Mercado de personajes", mercado_pj_txt:"Compra y vende personajes de forma segura y oficial.",
+    shop_txt:"Compra la moneda del juego.", mercado_pj:"Mercado de personajes", mercado_pj_txt:"Compra y vende personajes de forma segura y oficial.",
     especiales_txt:"Aquí se venderán cosas especiales.",
     nosotros_txt:"Somos el equipo de Red Moon. Pronto más sobre nosotros.",
     soporte_txt:"¿Necesitas ayuda? El centro de soporte abre pronto.",
@@ -460,19 +491,15 @@ const T = {
     reglas_txt:"Aquí se publicarán las reglas del juego.",
     descargar:"Descargar", descargar_txt:"Red Moon Online llega pronto. Los links de descarga saldrán aquí en el lanzamiento.",
     nombre_pj:"Nombre de personaje (opcional)", preregistrarme:"Pre-registrarme",
-    prereg_pronto:"El pre-registro abre muy pronto. ¡Gracias por tu interés!"
-  },
-  pt:{
-    play:"Jogue grátis", lema:"Erga-se sob a Lua Vermelha",
+    prereg_pronto:"El pre-registro abre muy pronto. ¡Gracias por tu interés!" },
+  pt:{ play:"Jogue grátis", lema:"Erga-se sob a Lua Vermelha",
     m_inicio:"Início", m_noticias:"Notícias", m_cuenta:"Conta", m_wiki:"Wiki", m_market:"Market",
     m_nosotros:"Quem somos", m_soporte:"Suporte", m_ranking:"Ranking", m_reglas:"Regras", m_redes:"Redes",
     eventos:"Eventos", ir_cuenta:"Conta", preregistro:"Pré-registro",
     entrar:"Entrar", registrar:"Cadastrar", usuario:"Usuário", clave:"Senha", correo:"E-mail",
-    cuentas_pronto:"As contas abrem em breve. Fique ligado!",
-    pronto:"Em breve",
+    cuentas_pronto:"As contas abrem em breve. Fique ligado!", pronto:"Em breve",
     wiki_txt:"O guia do jogo: classes, mapas, monstros, chefes e itens.",
-    shop_txt:"Compre a moeda do jogo.",
-    mercado_pj:"Mercado de personagens", mercado_pj_txt:"Compre e venda personagens de forma segura e oficial.",
+    shop_txt:"Compre a moeda do jogo.", mercado_pj:"Mercado de personagens", mercado_pj_txt:"Compre e venda personagens de forma segura e oficial.",
     especiales_txt:"Aqui serão vendidos itens especiais.",
     nosotros_txt:"Somos a equipe Red Moon. Em breve mais sobre nós.",
     soporte_txt:"Precisa de ajuda? A central de suporte abre em breve.",
@@ -480,13 +507,33 @@ const T = {
     reglas_txt:"Aqui serão publicadas as regras do jogo.",
     descargar:"Baixar", descargar_txt:"Red Moon Online chega em breve. Os links de download aparecerão aqui no lançamento.",
     nombre_pj:"Nome do personagem (opcional)", preregistrarme:"Fazer pré-registro",
-    prereg_pronto:"O pré-registro abre muito em breve. Obrigado pelo interesse!"
-  }
+    prereg_pronto:"O pré-registro abre muito em breve. Obrigado pelo interesse!" }
 };
+
+/* =========================================================
+   5) ICONOS DIBUJADOS (cada opción del menú tiene el suyo)
+   ========================================================= */
+const ICONOS = {
+  inicio:`<svg viewBox="0 0 40 40"><rect x="7" y="29" width="26" height="5" rx="2.5" fill="#7a4a22" transform="rotate(-14 20 31)"/><rect x="7" y="29" width="26" height="5" rx="2.5" fill="#5e3618" transform="rotate(14 20 31)"/><g class="llama"><path d="M20 3 C29 13 31 20 27 27 Q20 33 13 27 C9 20 13 13 20 3Z" fill="#e8541e"/><path d="M20 12 C24.5 18 25.5 22 23 26 Q20 29 17 26 C14.5 22 16 18 20 12Z" fill="#ffd34d"/></g></svg>`,
+  noticias:`<svg viewBox="0 0 40 40"><g class="flota"><rect x="6" y="12" width="28" height="14" rx="7" fill="#e8d3a8"/><ellipse cx="8" cy="19" rx="3.5" ry="7" fill="#c9ad7a"/><ellipse cx="32" cy="19" rx="3.5" ry="7" fill="#c9ad7a"/><path d="M13 16h14M13 20h10" stroke="#a88c5c" stroke-width="1.5"/><circle cx="20" cy="28" r="6" fill="#b3241f"/><circle cx="20" cy="28" r="2.6" fill="#7a140f"/><path d="M18 32 l-2 6 3 -2 2 2 -1 -6" fill="#b3241f"/></g></svg>`,
+  cuenta:`<svg viewBox="0 0 40 40"><rect x="25" y="4" width="5" height="30" rx="2.5" fill="#7a4a22" transform="rotate(30 27 19)"/><ellipse cx="31" cy="8" rx="6" ry="5" fill="#8a5428" transform="rotate(30 27 19)"/><circle cx="17" cy="22" r="13" fill="#8a5428" stroke="#3b2412" stroke-width="2"/><circle cx="17" cy="22" r="8.5" fill="none" stroke="#c9a46a" stroke-width="2"/><circle cx="17" cy="22" r="3.5" fill="#efe4cc"/></svg>`,
+  wiki:`<svg viewBox="0 0 40 40"><rect x="9" y="4" width="22" height="32" rx="6" fill="#8f8a83" stroke="#5c5852" stroke-width="2"/><g class="parpadea" stroke="#f2c46a" stroke-width="2.2" fill="none" stroke-linecap="round"><path d="M14 12l4 4 4-4 4 4"/><path d="M14 21h12"/><path d="M15 28l3-3 3 3 3-3"/></g></svg>`,
+  market:`<svg viewBox="0 0 40 40"><path d="M3 9h34v7H3z" fill="#ead2a4"/><path d="M3 9h8.5v7H3zM20 9h8.5v7H20z" fill="#b3241f"/><path d="M3 16a4.25 3.5 0 0 0 8.5 0zM20 16a4.25 3.5 0 0 0 8.5 0z" fill="#b3241f"/><path d="M11.5 16a4.25 3.5 0 0 0 8.5 0zM28.5 16a4.25 3.5 0 0 0 8.5 0z" fill="#ead2a4"/><rect x="5" y="16" width="3" height="20" fill="#7a4a22"/><rect x="32" y="16" width="3" height="20" fill="#7a4a22"/><rect x="4" y="28" width="32" height="6" rx="2" fill="#8a5428"/><g class="flota"><circle cx="20" cy="24" r="4.5" fill="#c8932f"/><circle cx="20" cy="24" r="1.7" fill="#ffe27a"/></g></svg>`,
+  nosotros:`<svg viewBox="0 0 40 40"><g stroke-linecap="round"><path d="M9 33 L29 9" stroke="#c9ced6" stroke-width="4"/><path d="M31 33 L11 9" stroke="#c9ced6" stroke-width="4"/><path d="M6 28 l8 8 M34 28 l-8 8" stroke="#b8862f" stroke-width="3.5"/></g><circle cx="20" cy="21" r="7.5" fill="#7a4a22" stroke="#3b2412" stroke-width="1.5"/><circle cx="20" cy="21" r="3" fill="#d8352a"/></svg>`,
+  soporte:`<svg viewBox="0 0 40 40"><rect x="18" y="13" width="4" height="25" rx="2" fill="#7a4a22"/><path d="M13 17 Q20 22 27 17" stroke="#efe4cc" stroke-width="2" fill="none"/><g class="parpadea"><circle cx="20" cy="10" r="7" fill="#e8541e"/></g><circle cx="20" cy="10" r="3.4" fill="#ffd34d"/></svg>`,
+  ranking:`<svg viewBox="0 0 40 40"><path d="M7 13 L14 22 L20 9 L26 22 L33 13 L31 30 H9 Z" fill="#f2b54a" stroke="#8a5a12" stroke-width="2" stroke-linejoin="round"/><rect x="8" y="30" width="24" height="5" rx="2.5" fill="#efe4cc"/><circle cx="20" cy="24" r="2.6" fill="#d8352a"/><g class="parpadea"><circle cx="20" cy="9" r="2" fill="#fff3a0"/></g></svg>`,
+  reglas:`<svg viewBox="0 0 40 40"><rect x="11" y="3" width="18" height="34" rx="4" fill="#7a4a22" stroke="#3b2412" stroke-width="1.5"/><g class="parpadea"><circle cx="16" cy="11" r="2.2" fill="#ffd34d"/><circle cx="24" cy="11" r="2.2" fill="#ffd34d"/></g><path d="M15 17h10M14 24h12M16 30h8" stroke="#d8352a" stroke-width="2.6" stroke-linecap="round"/></svg>`,
+  redes:`<svg viewBox="0 0 40 40"><g class="humo" fill="#d6cdc2"><circle cx="20" cy="22" r="5"/><circle cx="16" cy="14" r="4"/><circle cx="22" cy="7" r="3.5"/></g><path d="M11 35 Q20 30 29 35" stroke="#7a4a22" stroke-width="4" stroke-linecap="round" fill="none"/><path d="M20 32 C24 28 23 25 20 22 C17 25 16 28 20 32Z" fill="#e8541e"/></svg>`,
+  oro:`<svg viewBox="0 0 40 40"><path d="M14 12 Q10 6 20 5 Q30 6 26 12 Q36 20 20 36 Q4 20 14 12Z" fill="#c8932f"/><path d="M14 12 Q20 15 26 12" stroke="#7a5212" stroke-width="2.5" fill="none"/><circle cx="20" cy="23" r="5" fill="#ffe27a"/><circle cx="20" cy="23" r="2" fill="#c8932f"/></svg>`
+};
+
+/* Dibujos grandes de las páginas Noticias y Market */
+const ARTE_NOTICIAS = `<svg viewBox="0 0 170 135"><ellipse cx="88" cy="124" rx="58" ry="6" fill="#000" opacity=".45"/><g class="flota"><g class="ala-lenta"><path d="M108 66 L118 14 L150 2 C146 18 152 30 160 38 C148 40 140 46 138 56 C130 50 120 52 116 62 Z" fill="#4a120a"/><path d="M118 14 L150 2 M118 14 L160 38 M118 14 L138 56" stroke="#1e0905" stroke-width="2.4"/></g><path d="M112 102 C132 108 150 100 156 88 C160 80 154 74 148 80 C142 90 130 96 114 94 Z" fill="#2e221c"/><path d="M156 88 L166 84 L160 94 Z" fill="#6b4a32"/><path d="M68 72 C78 56 104 52 120 62 C132 72 132 94 118 104 C100 114 78 110 68 98 Z" fill="#3a2a22"/><path d="M76 76 C88 66 104 64 116 70" stroke="#6b4a32" stroke-width="3" fill="none"/><path d="M84 66 l3 -9 4 8 M98 62 l4 -10 3 10 M112 64 l5 -8 1 9" fill="#d8c8a8"/><path d="M80 74 C70 56 60 44 48 38" stroke="#3a2a22" stroke-width="17" fill="none" stroke-linecap="round"/><path d="M70 66 C64 56 58 50 50 46" stroke="#6b4a32" stroke-width="3" fill="none"/><path d="M50 26 L24 33 L8 40 L22 45 L40 47 L54 43 C61 38 59 28 50 26Z" fill="#4a3628"/><path d="M22 45 L44 49 L30 55 Z" fill="#2e221c"/><path d="M14 43 l3 4 2 -4 M22 45 l2 4 2 -4" stroke="#efe4cc" stroke-width="1.6" fill="none"/><path d="M52 28 L70 12 L58 31Z M47 27 L60 7 L52 29Z" fill="#d8c8a8"/><g class="parpadea"><circle cx="40" cy="34" r="4.5" fill="#ff5a2a" opacity=".45"/></g><path d="M36 33 L44 32 L41 36 Z" fill="#ffd34d"/><g class="humo" fill="#8a7f74"><circle cx="8" cy="34" r="3"/><circle cx="3" cy="28" r="2.2"/></g><path d="M74 96 C66 100 60 102 54 100" stroke="#3a2a22" stroke-width="12" fill="none" stroke-linecap="round"/><rect x="18" y="92" width="52" height="16" rx="8" fill="#e8d3a8"/><ellipse cx="20" cy="100" rx="5" ry="8" fill="#c9ad7a"/><ellipse cx="68" cy="100" rx="5" ry="8" fill="#c9ad7a"/><path d="M28 96 h30 M28 101 h24 M28 105 h28" stroke="#a88c5c" stroke-width="1.3"/><circle cx="44" cy="110" r="7" fill="#b3241f"/><circle cx="44" cy="110" r="3.2" fill="#7a140f"/><path d="M42 112 l-3 8 4 -3 3 3 -1 -8" fill="#b3241f"/><path d="M50 92 L46 84 L54 90 M58 92 L56 82 L62 90 M66 94 L66 84 L70 92" fill="#efe4cc" stroke="#2e221c" stroke-width="1"/><path d="M50 108 C54 114 60 114 64 108" stroke="#3a2a22" stroke-width="6" fill="none" stroke-linecap="round"/><g class="ala-lenta"><path d="M96 64 L82 8 L112 18 C110 28 116 36 124 40 C114 44 108 50 108 60 C102 56 96 58 96 64 Z" fill="#8a2416"/><path d="M82 8 L112 18 M82 8 L124 40 M82 8 L108 60" stroke="#2a0e06" stroke-width="2.2"/><path d="M96 64 L82 8" stroke="#2e221c" stroke-width="4" stroke-linecap="round"/></g><path d="M100 104 l-6 14 M112 102 l4 14" stroke="#2e221c" stroke-width="7" stroke-linecap="round"/><path d="M90 118 l-4 3 M94 118 l0 4 M98 118 l4 3 M112 116 l-3 4 M116 116 l1 4 M120 116 l4 3" stroke="#efe4cc" stroke-width="2" stroke-linecap="round"/></g></svg>`;
+const ARTE_MARKET = `<svg viewBox="0 0 140 120"><rect x="14" y="30" width="9" height="82" rx="3" fill="#7a4a22"/><rect x="117" y="30" width="9" height="82" rx="3" fill="#7a4a22"/><path d="M54 76 Q70 66 86 76 L88 90 L52 90 Z" fill="#4a3a2e"/><path d="M50 80 Q52 70 60 70 L62 80 Z M90 80 Q88 70 80 70 L78 80 Z" fill="#5a5f66"/><circle cx="70" cy="60" r="15" fill="#5f8a34"/><path d="M64 68 Q70 72 76 68" stroke="#2f4a18" stroke-width="2" fill="none"/><path d="M64 68 L63 62 L66 67 Z M76 68 L77 62 L74 67 Z" fill="#efe4cc"/><path d="M55 56 L48 50 L57 52 Z M85 56 L92 50 L83 52 Z" fill="#5f8a34"/><path d="M58 50 Q70 38 82 50 Q76 46 70 47 Q64 46 58 50Z" fill="#1e1a14"/><path d="M68 44 Q70 30 74 26 Q72 36 73 44Z" fill="#1e1a14"/><path d="M61 54 L68 57 M79 54 L72 57" stroke="#1e1a14" stroke-width="2.6" stroke-linecap="round"/><circle cx="65" cy="60" r="2.4" fill="#ff5a2a"/><circle cx="75" cy="60" r="2.4" fill="#ff5a2a"/><g class="flota"><path d="M84 72 Q92 60 96 54" stroke="#5f8a34" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M90 50 Q86 40 96 38 Q106 40 102 50 Q110 58 96 62 Q82 58 90 50Z" fill="#c8932f"/><path d="M90 46 Q96 49 102 46" stroke="#7a5212" stroke-width="2.5" fill="none"/><circle cx="96" cy="54" r="3.5" fill="#ffe27a"/></g><g class="parpadea" fill="#ffe27a"><path d="M108 40 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2z"/></g><path d="M8 16 H132 V36 H8 Z" fill="#ead2a4"/><path d="M8 16 h20 v20 h-20z M48 16 h20 v20 h-20z M88 16 h20 v20 h-20z" fill="#b3241f"/><path d="M8 36 a10 9 0 0 0 20 0 z M48 36 a10 9 0 0 0 20 0 z M88 36 a10 9 0 0 0 20 0 z" fill="#b3241f"/><path d="M28 36 a10 9 0 0 0 20 0 z M68 36 a10 9 0 0 0 20 0 z M108 36 a10 9 0 0 0 20 0 z" fill="#ead2a4"/><path d="M4 16 Q70 2 136 16" stroke="#5a3218" stroke-width="5" fill="none" stroke-linecap="round"/><rect x="16" y="86" width="108" height="14" rx="4" fill="#8a5428"/><rect x="16" y="98" width="108" height="14" rx="3" fill="#6b3e1f"/><path d="M30 99 v12 M52 99 v12 M76 99 v12 M100 99 v12" stroke="#4e2c14" stroke-width="2"/><ellipse cx="38" cy="83" rx="12" ry="7" fill="#c0533a"/><rect x="47" y="80" width="12" height="4" rx="2" fill="#f0ead8"/><circle cx="60" cy="80" r="2.6" fill="#f0ead8"/><circle cx="60" cy="84" r="2.6" fill="#f0ead8"/><rect x="82" y="80" width="22" height="4.5" rx="2.2" fill="#f0ead8"/><circle cx="82" cy="80" r="3" fill="#f0ead8"/><circle cx="82" cy="85" r="3" fill="#f0ead8"/><circle cx="104" cy="80" r="3" fill="#f0ead8"/><circle cx="104" cy="85" r="3" fill="#f0ead8"/></svg>`;
 
 /* ===================== (no hace falta tocar lo de abajo) ===================== */
 const BANDERAS = { en:["🇺🇸","EN"], es:["🇪🇸","ES"], pt:["🇧🇷","PT"] };
-const ICONOS = { /* iconos simples, genéricos */
+const ICONOS_REDES = {
   Discord:'<svg viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-9l-5 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm5 5a1.3 1.3 0 1 0 0 2.6A1.3 1.3 0 0 0 9 10zm6 0a1.3 1.3 0 1 0 0 2.6A1.3 1.3 0 0 0 15 10z"/></svg>',
   Instagram:'<svg viewBox="0 0 24 24"><path d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zm0 2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm5 3.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7zm0 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM17.3 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>',
   Facebook:'<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1.5 6H15V5.5h-1.8c-2 0-3.2 1.2-3.2 3.3V11H8v2.5h2V20h2.5v-6.5h2l.4-2.5h-2.4V9c0-.6.3-1 1-1z"/></svg>',
@@ -496,6 +543,25 @@ const ICONOS = { /* iconos simples, genéricos */
 };
 let idioma = "en";
 try { const g = localStorage.getItem("rm_idioma"); if (T[g]) idioma = g; } catch(e){}
+
+// iconos del menú, tarjetas y dibujos grandes
+document.querySelectorAll("nav.menu a").forEach(a => a.insertAdjacentHTML("afterbegin", ICONOS[a.dataset.i] || ""));
+document.querySelectorAll("[data-ic]").forEach(s => s.innerHTML = ICONOS[s.dataset.ic] || "");
+document.getElementById("arteNoticias").innerHTML = ARTE_NOTICIAS;
+document.getElementById("arteMarket").innerHTML = ARTE_MARKET;
+
+// brasas flotando sobre la imagen
+(function(){
+  const c = document.getElementById("brasas");
+  for (let i = 0; i < 18; i++) {
+    const b = document.createElement("span"); b.className = "brasa";
+    b.style.left = Math.random()*100 + "%";
+    b.style.animationDuration = (5 + Math.random()*6) + "s";
+    b.style.animationDelay = (Math.random()*8) + "s";
+    const s = 2 + Math.random()*3; b.style.width = s+"px"; b.style.height = s+"px";
+    c.appendChild(b);
+  }
+})();
 
 function pintarEntradas(lista, cont, max){
   const el = document.getElementById(cont); if(!el) return;
@@ -507,8 +573,9 @@ function pintarEntradas(lista, cont, max){
     </div>`).join("");
 }
 function pintarRedes(cont){
-  document.getElementById(cont).innerHTML = REDES.map(r =>
-    `<a class="red" href="${r.link}" ${r.link !== "#" ? 'target="_blank" rel="noopener"' : ""}>${ICONOS[r.nombre]||""}<span>${r.nombre}</span></a>`).join("");
+  document.getElementById(cont).innerHTML = REDES.map(r => r.link
+    ? `<a class="red" href="${r.link}" target="_blank" rel="noopener">${ICONOS_REDES[r.nombre]||""}<span>${r.nombre}</span></a>`
+    : `<div class="red red-pronto">${ICONOS_REDES[r.nombre]||""}<span>${r.nombre}</span><small>${T[idioma].pronto}</small></div>`).join("");
 }
 function aplicarIdioma(){
   document.documentElement.lang = idioma;
@@ -518,16 +585,32 @@ function aplicarIdioma(){
   pintarEntradas(EVENTOS, "listaEventosInicio", 3);
   pintarEntradas(NOTICIAS, "listaNoticiasInicio", 3);
   pintarEntradas(NOTICIAS, "listaNoticias");
+  pintarRedes("redesInicio"); pintarRedes("redesPagina");
+}
+function idActual(){
+  let id = (location.hash || "#inicio").slice(1);
+  return document.getElementById("p-" + id) ? id : "inicio";
 }
 function mostrarPagina(){
-  let id = (location.hash || "#inicio").slice(1);
-  if (!document.getElementById("p-" + id)) id = "inicio";
+  const id = idActual();
   document.querySelectorAll(".pagina").forEach(p => p.classList.toggle("visible", p.id === "p-" + id));
   document.querySelectorAll("nav.menu a").forEach(a => a.classList.toggle("activo", a.getAttribute("href") === "#" + id));
-  if (location.hash) document.getElementById("menu").scrollIntoView({behavior:"smooth", block:"start"});
 }
 
-// Banderita
+// transición: dragón dorado + luna roja al cambiar de página
+const tr = document.getElementById("transicion");
+let primera = true;
+function cambiar(){
+  if (primera) { primera = false; mostrarPagina(); return; }
+  tr.classList.remove("activa"); void tr.offsetWidth; tr.classList.add("activa");
+  setTimeout(() => {
+    mostrarPagina();
+    document.getElementById("menu").scrollIntoView({behavior:"smooth", block:"start"});
+  }, 380);
+  setTimeout(() => tr.classList.remove("activa"), 1050);
+}
+
+// banderita
 const lista = document.getElementById("idiomaLista");
 document.getElementById("idiomaBtn").addEventListener("click", e => { e.stopPropagation(); lista.classList.toggle("abierta"); });
 document.addEventListener("click", () => lista.classList.remove("abierta"));
@@ -537,15 +620,14 @@ lista.querySelectorAll("button").forEach(b => b.addEventListener("click", () => 
   aplicarIdioma(); lista.classList.remove("abierta");
 }));
 
-// Formularios (todavía no guardan nada: muestran "próximamente")
+// formularios (todavía no guardan nada)
 document.querySelectorAll(".formPronto").forEach(f => f.addEventListener("submit", e => {
   e.preventDefault(); f.querySelector(".aviso").classList.add("ver");
 }));
 
 document.getElementById("anio").textContent = new Date().getFullYear();
-pintarRedes("redesInicio"); pintarRedes("redesPagina");
-aplicarIdioma(); mostrarPagina();
-window.addEventListener("hashchange", mostrarPagina);
+aplicarIdioma(); cambiar();
+window.addEventListener("hashchange", cambiar);
 </script>
 </body>
 </html>
