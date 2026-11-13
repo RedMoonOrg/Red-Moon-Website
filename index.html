@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Red Moon Online</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@700;900&family=Alegreya:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@700;900&family=Alegreya:wght@400;700&family=Noto+Sans+Thai:wght@400;700&display=swap" rel="stylesheet">
 <style>
 /* =========================================================
    RED MOON ONLINE - estilos (colores principales aquí)
@@ -193,6 +193,7 @@ main{max-width:1120px;margin:26px auto 40px;padding:0 14px}
 .tarjeta h3{font-family:Cinzel,serif;margin:6px 0;color:var(--oro)}
 .tarjeta p{color:var(--texto-suave);margin:0 0 12px}
 .tarjeta svg{width:56px;height:56px}
+.nota-apk{font-size:14px;color:var(--texto-suave);margin:8px 0 14px;text-align:center}
 .pronto{display:inline-block;font-family:Cinzel,serif;font-weight:900;color:var(--oro);
   border:1px solid var(--oro-osc);border-radius:3px;padding:3px 12px;font-size:13px;background:rgba(0,0,0,.3)}
 
@@ -234,6 +235,35 @@ footer{text-align:center;color:#8a735c;font-size:14px;padding:24px 10px 34px;bor
   .btn-play{padding:8px 12px;font-size:13px}
   .portada{min-height:46vh}
 }
+
+/* ---------- Selector de idioma ---------- */
+.idioma-lista{display:none;grid-template-columns:1fr;min-width:210px;padding:6px}
+.idioma-lista.abierta{display:grid}
+.idioma-lista button{border-radius:6px;align-items:center}
+.idioma-lista button .bandera{font-size:20px}
+.idioma-lista button.actual{background:#3a2516;color:var(--oro);box-shadow:inset 0 0 0 1px rgba(242,196,106,.5)}
+/* ---------- Jugar ahora ---------- */
+nav.menu a.menu-play{color:#ffb39e}
+.caja-play{max-width:640px;margin-left:auto;margin-right:auto}
+.play-txt{text-align:center;margin:0 0 18px}
+.pasos{display:grid;gap:12px;margin-bottom:18px}
+.paso{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:6px;cursor:pointer;text-decoration:none;
+  color:#fff;font-family:Cinzel,serif;font-weight:900;font-size:15px;background:#140d08;border:2px solid #5a3a1e;
+  box-shadow:0 0 0 2px #0c0603}
+.paso:hover{border-color:var(--oro-osc)}
+.paso-ico svg{width:30px;height:30px;fill:var(--oro);display:block}
+.paso .check{margin-left:auto;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  border:2px solid #5a3a1e;color:transparent;font-size:15px}
+.paso.hecho{border-color:#3f7a2a}
+.paso.hecho .check{background:#3f7a2a;border-color:#7ac35a;color:#fff}
+.btn-apk{font-size:17px;padding:14px}
+.btn-apk .candado{display:none}
+.btn-apk.bloqueado{filter:grayscale(.85) brightness(.6);cursor:not-allowed;box-shadow:none}
+.btn-apk.bloqueado .candado{display:inline}
+.aviso-bloqueo{text-align:center;color:#f6d79b;font-size:15px;margin:10px 0 0}
+.btn-entrada{display:inline-block;width:auto;margin-top:12px;padding:9px 18px;font-size:14px}
+:lang(th) body,:lang(th) .caja h2,:lang(th) nav.menu a,:lang(th) .btn,:lang(th) .btn-play,:lang(th) .paso,:lang(th) .entrada h3{font-family:"Noto Sans Thai",Tahoma,sans-serif}
+:lang(ru) .caja h2,:lang(ru) nav.menu a,:lang(ru) .btn,:lang(ru) .btn-play,:lang(ru) .paso,:lang(ru) .entrada h3,:lang(vi) .caja h2,:lang(vi) nav.menu a,:lang(vi) .btn,:lang(vi) .btn-play,:lang(vi) .paso,:lang(vi) .entrada h3{font-family:Alegreya,Georgia,serif;font-weight:700}
 </style>
 </head>
 <body>
@@ -244,13 +274,9 @@ footer{text-align:center;color:#8a735c;font-size:14px;padding:24px 10px 34px;bor
   <div class="barra-top">
     <div class="idioma">
       <button class="idioma-btn" id="idiomaBtn" aria-label="Language"><span id="banderaActual">🇺🇸</span> <span id="codigoActual">EN</span> ▾</button>
-      <div class="idioma-lista" id="idiomaLista">
-        <button data-lang="en">🇺🇸 English</button>
-        <button data-lang="es">🇪🇸 Español</button>
-        <button data-lang="pt">🇧🇷 Português</button>
-      </div>
+      <div class="idioma-lista" id="idiomaLista"></div>
     </div>
-    <a class="btn-play" href="#descargar" data-t="play"></a>
+    <a class="btn-play" href="#play" data-t="play"></a>
   </div>
   <div class="titulo">
     <h1>Red Moon Online</h1>
@@ -261,6 +287,7 @@ footer{text-align:center;color:#8a735c;font-size:14px;padding:24px 10px 34px;bor
 <!-- ================= MENÚ (los iconos se ponen solos desde ICONOS) ================= -->
 <nav class="menu" id="menu">
   <a href="#inicio" data-i="inicio"><span data-t="m_inicio"></span></a>
+  <a href="#play" data-i="play" class="menu-play"><span data-t="m_play"></span></a>
   <a href="#noticias" data-i="noticias"><span data-t="m_noticias"></span></a>
   <a href="#cuenta" data-i="cuenta"><span data-t="m_cuenta"></span></a>
   <a href="#wiki" data-i="wiki"><span data-t="m_wiki"></span></a>
@@ -284,7 +311,7 @@ footer{text-align:center;color:#8a735c;font-size:14px;padding:24px 10px 34px;bor
       <aside>
         <div class="caja"><h2 data-t="m_cuenta"></h2>
           <a class="btn" href="#cuenta" data-t="ir_cuenta"></a>
-          <a class="btn secundario" href="#descargar" data-t="preregistro"></a>
+          <a class="btn secundario" href="#play" data-t="play"></a>
         </div>
         <div class="caja"><h2 data-t="m_redes"></h2><div class="redes" id="redesInicio"></div></div>
       </aside>
@@ -366,23 +393,20 @@ footer{text-align:center;color:#8a735c;font-size:14px;padding:24px 10px 34px;bor
     <div class="caja"><h2 data-t="m_redes"></h2><div class="redes" id="redesPagina"></div></div>
   </section>
 
-  <!-- ===== DESCARGAR / PRE-REGISTRO ===== -->
-  <section class="pagina" id="p-descargar">
-    <div class="dos-col">
-      <div class="caja"><h2 data-t="descargar"></h2>
-        <p data-t="descargar_txt"></p>
-        <!-- Cuando tengas los links de las tiendas, cámbialos aquí -->
-        <a class="btn secundario" href="#descargar">App Store — <span data-t="pronto"></span></a>
-        <a class="btn secundario" href="#descargar">Google Play — <span data-t="pronto"></span></a>
+  <!-- ===== JUGAR AHORA (descarga del APK) ===== -->
+  <section class="pagina" id="p-play">
+    <div class="caja caja-play">
+      <h2 data-t="play_titulo"></h2>
+      <p class="play-txt" data-t="play_txt"></p>
+      <div class="pasos">
+        <a class="paso" id="paso1" target="_blank" rel="noopener"><span class="paso-ico" id="icoDiscord"></span><span data-t="paso1"></span><span class="check">✓</span></a>
+        <a class="paso" id="paso2" target="_blank" rel="noopener"><span class="paso-ico" id="icoTelegram"></span><span data-t="paso2"></span><span class="check">✓</span></a>
       </div>
-      <div class="caja"><h2 data-t="preregistro"></h2>
-        <form class="formPronto">
-          <div class="campo"><label data-t="correo"></label><input type="email" autocomplete="email"></div>
-          <div class="campo"><label data-t="nombre_pj"></label><input type="text"></div>
-          <button class="btn" type="submit" data-t="preregistrarme"></button>
-          <div class="aviso" data-t="prereg_pronto"></div>
-        </form>
-      </div>
+      <a class="btn btn-apk bloqueado" id="btnApk"><span class="candado">🔒</span> <span data-t="bajar_apk"></span></a>
+      <p class="aviso-bloqueo" id="avisoBloqueo" data-t="bloqueado"></p>
+      <p class="nota-apk" data-t="nota_apk"></p>
+      <a class="btn secundario" href="#play">Google Play — <span data-t="pronto"></span></a>
+      <a class="btn secundario" href="#play">App Store — <span data-t="pronto"></span></a>
     </div>
   </section>
 
@@ -413,11 +437,16 @@ footer{text-align:center;color:#8a735c;font-size:14px;padding:24px 10px 34px;bor
 
 <script>
 /* =========================================================
-   1) LINKS DE REDES — pon aquí tus links (deja "" vacío = sale "Próximamente")
+   1) LINKS — cámbialos aquí cuando quieras
+      (link vacío "" = sale "Próximamente")
    ========================================================= */
+const LINK_APK      = "https://www.mediafire.com/file/2hqywjvd2exp4uv/RedMoonOnline_v39.apk/file";
+const LINK_DISCORD  = "https://discord.gg/8YMrttzGvf";
+const LINK_TELEGRAM = "https://t.me/+lJbt3o7VbfBmZDZh";
 const REDES = [
-  { nombre:"Discord",   link:"https://discord.gg/8YMrttzGvf" },
+  { nombre:"Discord",   link:LINK_DISCORD },
   { nombre:"Instagram", link:"https://www.instagram.com/rmonlinemmo/" },
+  { nombre:"Telegram",  link:LINK_TELEGRAM },
   { nombre:"Facebook",  link:"" },
   { nombre:"TikTok",    link:"" },
   { nombre:"YouTube",   link:"" },
@@ -425,45 +454,84 @@ const REDES = [
 ];
 
 /* =========================================================
-   2) EVENTOS — copia un bloque { ... } y ponlo ARRIBA para añadir uno
+   2) IDIOMAS DE LA PÁGINA (el primero es el que sale al abrir)
+   ========================================================= */
+const IDIOMAS = [
+  { code:"en", flag:"🇺🇸", nombre:"English" },
+  { code:"es", flag:"🇪🇸", nombre:"Español" },
+  { code:"pt", flag:"🇧🇷", nombre:"Português" },
+  { code:"ru", flag:"🇷🇺", nombre:"Русский" },
+  { code:"th", flag:"🇹🇭", nombre:"ไทย" },
+  { code:"vi", flag:"🇻🇳", nombre:"Tiếng Việt" },
+  { code:"id", flag:"🇮🇩", nombre:"Bahasa Indonesia" }
+];
+
+/* =========================================================
+   3) EVENTOS — copia un bloque { ... } y ponlo ARRIBA para añadir uno.
+      "boton" es opcional (lleva a otra parte de la página).
+      Si falta un idioma, sale el inglés.
    ========================================================= */
 const EVENTOS = [
   {
-    etiqueta:{ en:"Event", es:"Evento", pt:"Evento" },
-    titulo:{ en:"Pre-registration Event", es:"Evento de Pre-registro", pt:"Evento de Pré-registro" },
-    fecha:{ en:"Valid until launch · Date to be announced", es:"Válido hasta el lanzamiento · Fecha por anunciar", pt:"Válido até o lançamento · Data a ser anunciada" },
+    etiqueta:{ en:"Event", es:"Evento", pt:"Evento", ru:"Событие", th:"กิจกรรม", vi:"Sự kiện", id:"Event" },
+    titulo:{ en:"Closed Test #1 is open!", es:"¡Test cerrado #1 abierto!", pt:"Teste fechado #1 aberto!", ru:"Закрытый тест №1 открыт!", th:"เปิดทดสอบแบบปิด #1 แล้ว!", vi:"Thử nghiệm kín #1 đã mở!", id:"Tes Tertutup #1 sudah dibuka!" },
+    fecha:{ en:"Offline · Android", es:"Offline · Android", pt:"Offline · Android", ru:"Офлайн · Android", th:"ออฟไลน์ · Android", vi:"Offline · Android", id:"Offline · Android" },
     texto:{
-      en:"Pre-register now and be part of Red Moon Online from day one.\nPre-registration rewards: coming soon.",
-      es:"Pre-regístrate ahora y forma parte de Red Moon Online desde el primer día.\nRecompensas de pre-registro: próximamente.",
-      pt:"Faça seu pré-registro agora e faça parte de Red Moon Online desde o primeiro dia.\nRecompensas de pré-registro: em breve."
-    }
+      en:"Download the test version for Android and help us improve Red Moon Online.",
+      es:"Descarga la versión de prueba para Android y ayúdanos a mejorar Red Moon Online.",
+      pt:"Baixe a versão de teste para Android e ajude a melhorar o Red Moon Online.",
+      ru:"Скачай тестовую версию для Android и помоги нам улучшить Red Moon Online.",
+      th:"ดาวน์โหลดเวอร์ชันทดสอบสำหรับ Android และช่วยเราพัฒนา Red Moon Online",
+      vi:"Tải phiên bản thử nghiệm cho Android và giúp chúng tôi hoàn thiện Red Moon Online.",
+      id:"Unduh versi tes untuk Android dan bantu kami menyempurnakan Red Moon Online."
+    },
+    boton:"#play"
   }
 ];
 
 /* =========================================================
-   3) NOTICIAS — la primera de la lista es la más nueva
+   4) NOTICIAS — la primera de la lista es la más nueva y sale en Inicio
    ========================================================= */
 const NOTICIAS = [
   {
-    etiqueta:{ en:"News", es:"Noticia", pt:"Notícia" },
-    titulo:{ en:"Welcome to Red Moon Online!", es:"¡Bienvenidos a Red Moon Online!", pt:"Bem-vindos ao Red Moon Online!" },
-    fecha:{ en:"The Red Moon Team", es:"El equipo de Red Moon", pt:"A equipe Red Moon" },
+    etiqueta:{ en:"News", es:"Noticia", pt:"Notícia", ru:"Новость", th:"ข่าว", vi:"Tin tức", id:"Berita" },
+    titulo:{ en:"Closed Test #1 — We need you!", es:"Test cerrado #1: ¡Te necesitamos!", pt:"Teste fechado #1: Precisamos de você!", ru:"Закрытый тест №1 — нам нужна твоя помощь!", th:"ทดสอบแบบปิด #1 — เราต้องการคุณ!", vi:"Thử nghiệm kín #1 — Chúng tôi cần bạn!", id:"Tes Tertutup #1 — Kami butuh kamu!" },
+    fecha:{ en:"The Red Moon Team", es:"El equipo de Red Moon", pt:"A equipe Red Moon", ru:"Команда Red Moon", th:"ทีม Red Moon", vi:"Đội ngũ Red Moon", id:"Tim Red Moon" },
+    texto:{
+      en:"Hello! We need you! Please download our game in its first phase. This is our first closed test. It's offline, and many features of our game still have to be added, but we want you to start testing a few things.\n\nThe goal: reach beyond level 10, try the next map, test the castles and more.\n\nThank you very much!",
+      es:"¡Hola! ¡Te necesitamos! Por favor, descarga nuestro juego en su primera fase. Este es nuestro primer test cerrado. Es offline y todavía faltan muchas cosas por implementar, pero queremos que vayas probando algunas cositas.\n\nLa meta: subir más allá del nivel 10, probar el siguiente mapa, probar los castillos y más.\n\n¡Muchas gracias!",
+      pt:"Olá! Precisamos de você! Por favor, baixe nosso jogo em sua primeira fase. Este é o nosso primeiro teste fechado. Ele é offline e ainda faltam muitas coisas para implementar, mas queremos que você já comece a testar algumas coisas.\n\nA meta: passar do nível 10, experimentar o próximo mapa, testar os castelos e mais.\n\nMuito obrigado!",
+      ru:"Привет! Нам нужна твоя помощь! Пожалуйста, скачай нашу игру на первом этапе. Это наш первый закрытый тест. Он офлайн, и многое в игре ещё предстоит добавить, но мы хотим, чтобы ты уже начал кое-что тестировать.\n\nЦель: подняться выше 10 уровня, попробовать следующую карту, протестировать замки и многое другое.\n\nБольшое спасибо!",
+      th:"สวัสดี! เราต้องการคุณ! กรุณาดาวน์โหลดเกมของเราในเฟสแรก นี่คือการทดสอบแบบปิดครั้งแรกของเรา เป็นแบบออฟไลน์ และยังมีอีกหลายอย่างที่ต้องเพิ่มเข้าไป แต่เราอยากให้คุณเริ่มทดสอบบางส่วนก่อน\n\nเป้าหมาย: เลเวลให้เกิน 10 ลองแผนที่ถัดไป ทดสอบปราสาท และอื่น ๆ\n\nขอบคุณมาก!",
+      vi:"Xin chào! Chúng tôi cần bạn! Hãy tải game của chúng tôi trong giai đoạn đầu tiên. Đây là đợt thử nghiệm kín đầu tiên. Phiên bản này chạy offline và vẫn còn nhiều tính năng chưa được thêm vào, nhưng chúng tôi muốn bạn thử trước một vài thứ.\n\nMục tiêu: vượt qua cấp 10, thử bản đồ tiếp theo, kiểm tra các lâu đài và nhiều hơn nữa.\n\nCảm ơn bạn rất nhiều!",
+      id:"Halo! Kami butuh kamu! Silakan unduh game kami di fase pertamanya. Ini adalah tes tertutup pertama kami. Versi ini offline dan masih banyak fitur yang belum ditambahkan, tapi kami ingin kamu mulai mencoba beberapa hal.\n\nTargetnya: naik lebih dari level 10, mencoba peta berikutnya, menguji kastil, dan lainnya.\n\nTerima kasih banyak!"
+    },
+    boton:"#play"
+  },
+  {
+    etiqueta:{ en:"News", es:"Noticia", pt:"Notícia", ru:"Новость", th:"ข่าว", vi:"Tin tức", id:"Berita" },
+    titulo:{ en:"Welcome to Red Moon Online!", es:"¡Bienvenidos a Red Moon Online!", pt:"Bem-vindos ao Red Moon Online!", ru:"Добро пожаловать в Red Moon Online!", th:"ยินดีต้อนรับสู่ Red Moon Online!", vi:"Chào mừng đến với Red Moon Online!", id:"Selamat datang di Red Moon Online!" },
+    fecha:{ en:"The Red Moon Team", es:"El equipo de Red Moon", pt:"A equipe Red Moon", ru:"Команда Red Moon", th:"ทีม Red Moon", vi:"Đội ngũ Red Moon", id:"Tim Red Moon" },
     texto:{
       en:"Hello! The Red Moon team welcomes you to this beautiful project we are putting our hearts into. We hope you join us to live this experience and see how far it takes us.\n\nWe hope you enjoy it to the fullest!\nThe Red Moon Team",
       es:"¡Hola! El equipo de Red Moon te da la bienvenida a este hermoso proyecto al que le estamos poniendo nuestro corazón. Esperamos que nos acompañes a vivir esta experiencia y a ver hasta dónde nos lleva.\n\n¡Esperamos que lo disfrutes al máximo!\nEl equipo de Red Moon",
-      pt:"Olá! A equipe Red Moon dá as boas-vindas a este lindo projeto no qual estamos colocando nosso coração. Esperamos que você nos acompanhe para viver esta experiência e ver até onde ela nos leva.\n\nEsperamos que você aproveite ao máximo!\nA equipe Red Moon"
+      pt:"Olá! A equipe Red Moon dá as boas-vindas a este lindo projeto no qual estamos colocando nosso coração. Esperamos que você nos acompanhe para viver esta experiência e ver até onde ela nos leva.\n\nEsperamos que você aproveite ao máximo!\nA equipe Red Moon",
+      ru:"Привет! Команда Red Moon приветствует тебя в этом прекрасном проекте, в который мы вкладываем всю душу. Надеемся, ты присоединишься к нам, чтобы прожить этот опыт и увидеть, как далеко он нас заведёт.\n\nНадеемся, тебе очень понравится!\nКоманда Red Moon",
+      th:"สวัสดี! ทีม Red Moon ขอต้อนรับคุณสู่โปรเจกต์ที่สวยงามนี้ ซึ่งเราทุ่มเทหัวใจให้ เราหวังว่าคุณจะมาร่วมใช้ประสบการณ์นี้กับเรา และไปดูกันว่ามันจะพาเราไปได้ไกลแค่ไหน\n\nขอให้สนุกอย่างเต็มที่!\nทีม Red Moon",
+      vi:"Xin chào! Đội ngũ Red Moon chào mừng bạn đến với dự án tuyệt đẹp mà chúng tôi dồn hết tâm huyết vào. Mong bạn sẽ cùng chúng tôi trải nghiệm hành trình này và xem nó đưa chúng ta đi xa đến đâu.\n\nChúc bạn chơi thật vui!\nĐội ngũ Red Moon",
+      id:"Halo! Tim Red Moon menyambutmu di proyek indah ini yang kami buat dengan sepenuh hati. Kami harap kamu ikut bersama kami menjalani pengalaman ini dan melihat sejauh mana kita bisa melangkah.\n\nSemoga kamu sangat menikmatinya!\nTim Red Moon"
     }
   }
 ];
 
 /* =========================================================
-   4) TEXTOS EN LOS 3 IDIOMAS
+   5) TEXTOS DE LA PÁGINA EN CADA IDIOMA
    ========================================================= */
 const T = {
-  en:{ play:"Play for Free", lema:"Rise under the Red Moon",
-    m_inicio:"Home", m_noticias:"News", m_cuenta:"Account", m_wiki:"Wiki", m_market:"Market",
+  en:{ play:"Play Now", lema:"Rise under the Red Moon",
+    m_inicio:"Home", m_play:"Play Now", m_noticias:"News", m_cuenta:"Account", m_wiki:"Wiki", m_market:"Market",
     m_nosotros:"About Us", m_soporte:"Support", m_ranking:"Ranking", m_reglas:"Rules", m_redes:"Socials",
-    eventos:"Events", ir_cuenta:"Account", preregistro:"Pre-register",
+    eventos:"Events", ir_cuenta:"Account",
     entrar:"Log in", registrar:"Sign up", usuario:"Username", clave:"Password", correo:"Email",
     cuentas_pronto:"Accounts will open soon. Stay tuned!", pronto:"Coming soon",
     wiki_txt:"The game guide: classes, maps, monsters, bosses and items.",
@@ -473,13 +541,16 @@ const T = {
     soporte_txt:"Need help? The support center opens soon.",
     ranking_txt:"The best players and clans will appear here.",
     reglas_txt:"The game rules will be published here.",
-    descargar:"Download", descargar_txt:"Red Moon Online is coming soon. Download links will appear here at launch.",
-    nombre_pj:"Character name (optional)", preregistrarme:"Pre-register me",
-    prereg_pronto:"Pre-registration opens very soon. Thank you for your interest!" },
-  es:{ play:"Juega gratis", lema:"Levántate bajo la Luna Roja",
-    m_inicio:"Inicio", m_noticias:"Noticias", m_cuenta:"Cuenta", m_wiki:"Wiki", m_market:"Market",
+    play_titulo:"Closed Test — Offline Version",
+    play_txt:"This is the offline test version. Online versions are coming soon. Please join our groups before downloading the game so you can give us your feedback and opinions. Most topics will be discussed in the Telegram group.",
+    paso1:"Step 1 · Join our Discord", paso2:"Step 2 · Join our Telegram",
+    bajar_apk:"Download for Android (APK)", bloqueado:"Complete steps 1 and 2 to unlock the download",
+    nota_apk:"Android may ask you to allow installing apps from unknown sources. Google Play and App Store coming soon.",
+    descargar_ya:"Download now", hecho:"Done" },
+  es:{ play:"Jugar ahora", lema:"Levántate bajo la Luna Roja",
+    m_inicio:"Inicio", m_play:"Jugar ahora", m_noticias:"Noticias", m_cuenta:"Cuenta", m_wiki:"Wiki", m_market:"Market",
     m_nosotros:"Quiénes somos", m_soporte:"Soporte", m_ranking:"Ranking", m_reglas:"Reglas", m_redes:"Redes",
-    eventos:"Eventos", ir_cuenta:"Cuenta", preregistro:"Pre-registro",
+    eventos:"Eventos", ir_cuenta:"Cuenta",
     entrar:"Ingresar", registrar:"Registrarse", usuario:"Usuario", clave:"Contraseña", correo:"Correo",
     cuentas_pronto:"Las cuentas abren pronto. ¡Mantente atento!", pronto:"Próximamente",
     wiki_txt:"La guía del juego: clases, mapas, monstruos, jefes e items.",
@@ -489,13 +560,16 @@ const T = {
     soporte_txt:"¿Necesitas ayuda? El centro de soporte abre pronto.",
     ranking_txt:"Aquí saldrán los mejores jugadores y clanes.",
     reglas_txt:"Aquí se publicarán las reglas del juego.",
-    descargar:"Descargar", descargar_txt:"Red Moon Online llega pronto. Los links de descarga saldrán aquí en el lanzamiento.",
-    nombre_pj:"Nombre de personaje (opcional)", preregistrarme:"Pre-registrarme",
-    prereg_pronto:"El pre-registro abre muy pronto. ¡Gracias por tu interés!" },
-  pt:{ play:"Jogue grátis", lema:"Erga-se sob a Lua Vermelha",
-    m_inicio:"Início", m_noticias:"Notícias", m_cuenta:"Conta", m_wiki:"Wiki", m_market:"Market",
+    play_titulo:"Test cerrado — Versión offline",
+    play_txt:"Esta es la versión de prueba offline. Las versiones online vendrán próximamente. Por favor, únete a nuestros grupos antes de descargar el juego para darnos tu feedback y opiniones. La mayoría de los temas se hablarán en el grupo de Telegram.",
+    paso1:"Paso 1 · Únete a nuestro Discord", paso2:"Paso 2 · Únete a nuestro Telegram",
+    bajar_apk:"Descargar para Android (APK)", bloqueado:"Completa los pasos 1 y 2 para desbloquear la descarga",
+    nota_apk:"Android puede pedirte permiso para instalar apps de origen desconocido. Google Play y App Store próximamente.",
+    descargar_ya:"Descargar ahora", hecho:"Hecho" },
+  pt:{ play:"Jogar agora", lema:"Erga-se sob a Lua Vermelha",
+    m_inicio:"Início", m_play:"Jogar agora", m_noticias:"Notícias", m_cuenta:"Conta", m_wiki:"Wiki", m_market:"Market",
     m_nosotros:"Quem somos", m_soporte:"Suporte", m_ranking:"Ranking", m_reglas:"Regras", m_redes:"Redes",
-    eventos:"Eventos", ir_cuenta:"Conta", preregistro:"Pré-registro",
+    eventos:"Eventos", ir_cuenta:"Conta",
     entrar:"Entrar", registrar:"Cadastrar", usuario:"Usuário", clave:"Senha", correo:"E-mail",
     cuentas_pronto:"As contas abrem em breve. Fique ligado!", pronto:"Em breve",
     wiki_txt:"O guia do jogo: classes, mapas, monstros, chefes e itens.",
@@ -505,15 +579,92 @@ const T = {
     soporte_txt:"Precisa de ajuda? A central de suporte abre em breve.",
     ranking_txt:"Aqui aparecerão os melhores jogadores e clãs.",
     reglas_txt:"Aqui serão publicadas as regras do jogo.",
-    descargar:"Baixar", descargar_txt:"Red Moon Online chega em breve. Os links de download aparecerão aqui no lançamento.",
-    nombre_pj:"Nome do personagem (opcional)", preregistrarme:"Fazer pré-registro",
-    prereg_pronto:"O pré-registro abre muito em breve. Obrigado pelo interesse!" }
+    play_titulo:"Teste fechado — Versão offline",
+    play_txt:"Esta é a versão de teste offline. As versões online chegam em breve. Por favor, entre nos nossos grupos antes de baixar o jogo para nos dar seu feedback e opiniões. A maioria dos assuntos será discutida no grupo do Telegram.",
+    paso1:"Passo 1 · Entre no nosso Discord", paso2:"Passo 2 · Entre no nosso Telegram",
+    bajar_apk:"Baixar para Android (APK)", bloqueado:"Conclua os passos 1 e 2 para liberar o download",
+    nota_apk:"O Android pode pedir permissão para instalar apps de fontes desconhecidas. Google Play e App Store em breve.",
+    descargar_ya:"Baixar agora", hecho:"Feito" },
+  ru:{ play:"Играть", lema:"Восстань под Красной Луной",
+    m_inicio:"Главная", m_play:"Играть", m_noticias:"Новости", m_cuenta:"Аккаунт", m_wiki:"Вики", m_market:"Маркет",
+    m_nosotros:"О нас", m_soporte:"Поддержка", m_ranking:"Рейтинг", m_reglas:"Правила", m_redes:"Соцсети",
+    eventos:"События", ir_cuenta:"Аккаунт",
+    entrar:"Войти", registrar:"Регистрация", usuario:"Имя пользователя", clave:"Пароль", correo:"Эл. почта",
+    cuentas_pronto:"Аккаунты скоро откроются. Следите за новостями!", pronto:"Скоро",
+    wiki_txt:"Гайд по игре: классы, карты, монстры, боссы и предметы.",
+    shop_txt:"Покупка игровой валюты.", mercado_pj:"Рынок персонажей", mercado_pj_txt:"Безопасная и официальная покупка и продажа персонажей.",
+    especiales_txt:"Здесь будут продаваться особые предметы.",
+    nosotros_txt:"Мы — команда Red Moon. Скоро расскажем о себе больше.",
+    soporte_txt:"Нужна помощь? Центр поддержки скоро откроется.",
+    ranking_txt:"Здесь появятся лучшие игроки и кланы.",
+    reglas_txt:"Здесь будут опубликованы правила игры.",
+    play_titulo:"Закрытый тест — офлайн-версия",
+    play_txt:"Это тестовая офлайн-версия. Онлайн-версии появятся позже. Пожалуйста, вступи в наши группы перед скачиванием игры, чтобы делиться отзывами и мнением. Большинство тем мы обсуждаем в Telegram-группе.",
+    paso1:"Шаг 1 · Вступи в наш Discord", paso2:"Шаг 2 · Вступи в наш Telegram",
+    bajar_apk:"Скачать для Android (APK)", bloqueado:"Выполни шаги 1 и 2, чтобы открыть загрузку",
+    nota_apk:"Android может попросить разрешить установку приложений из неизвестных источников. Google Play и App Store — скоро.",
+    descargar_ya:"Скачать сейчас", hecho:"Готово" },
+  th:{ play:"เล่นเลย", lema:"ผงาดใต้จันทร์สีเลือด",
+    m_inicio:"หน้าแรก", m_play:"เล่นเลย", m_noticias:"ข่าวสาร", m_cuenta:"บัญชี", m_wiki:"วิกิ", m_market:"ตลาด",
+    m_nosotros:"เกี่ยวกับเรา", m_soporte:"ช่วยเหลือ", m_ranking:"อันดับ", m_reglas:"กฎ", m_redes:"โซเชียล",
+    eventos:"กิจกรรม", ir_cuenta:"บัญชี",
+    entrar:"เข้าสู่ระบบ", registrar:"สมัครสมาชิก", usuario:"ชื่อผู้ใช้", clave:"รหัสผ่าน", correo:"อีเมล",
+    cuentas_pronto:"ระบบบัญชีจะเปิดเร็ว ๆ นี้ โปรดติดตาม!", pronto:"เร็ว ๆ นี้",
+    wiki_txt:"คู่มือเกม: อาชีพ แผนที่ มอนสเตอร์ บอส และไอเทม",
+    shop_txt:"ซื้อสกุลเงินในเกม", mercado_pj:"ตลาดตัวละคร", mercado_pj_txt:"ซื้อขายตัวละครอย่างปลอดภัยและเป็นทางการ",
+    especiales_txt:"ไอเทมพิเศษจะวางขายที่นี่",
+    nosotros_txt:"เราคือทีม Red Moon แล้วจะมาเล่าเกี่ยวกับเราเพิ่มเติมเร็ว ๆ นี้",
+    soporte_txt:"ต้องการความช่วยเหลือ? ศูนย์ช่วยเหลือจะเปิดเร็ว ๆ นี้",
+    ranking_txt:"ผู้เล่นและกิลด์ที่เก่งที่สุดจะแสดงที่นี่",
+    reglas_txt:"กฎของเกมจะประกาศที่นี่",
+    play_titulo:"ทดสอบแบบปิด — เวอร์ชันออฟไลน์",
+    play_txt:"นี่คือเวอร์ชันทดสอบแบบออฟไลน์ เวอร์ชันออนไลน์จะตามมาเร็ว ๆ นี้ กรุณาเข้าร่วมกลุ่มของเราก่อนดาวน์โหลดเกม เพื่อส่งความคิดเห็นและข้อเสนอแนะ หัวข้อส่วนใหญ่จะพูดคุยกันในกลุ่ม Telegram",
+    paso1:"ขั้นที่ 1 · เข้าร่วม Discord ของเรา", paso2:"ขั้นที่ 2 · เข้าร่วม Telegram ของเรา",
+    bajar_apk:"ดาวน์โหลดสำหรับ Android (APK)", bloqueado:"ทำขั้นที่ 1 และ 2 ให้เสร็จเพื่อปลดล็อกการดาวน์โหลด",
+    nota_apk:"Android อาจขอให้อนุญาตการติดตั้งแอปจากแหล่งที่ไม่รู้จัก Google Play และ App Store เร็ว ๆ นี้",
+    descargar_ya:"ดาวน์โหลดเลย", hecho:"เสร็จแล้ว" },
+  vi:{ play:"Chơi ngay", lema:"Trỗi dậy dưới Trăng Máu",
+    m_inicio:"Trang chủ", m_play:"Chơi ngay", m_noticias:"Tin tức", m_cuenta:"Tài khoản", m_wiki:"Wiki", m_market:"Chợ",
+    m_nosotros:"Về chúng tôi", m_soporte:"Hỗ trợ", m_ranking:"Xếp hạng", m_reglas:"Luật chơi", m_redes:"Mạng xã hội",
+    eventos:"Sự kiện", ir_cuenta:"Tài khoản",
+    entrar:"Đăng nhập", registrar:"Đăng ký", usuario:"Tên người dùng", clave:"Mật khẩu", correo:"Email",
+    cuentas_pronto:"Hệ thống tài khoản sắp mở. Hãy theo dõi nhé!", pronto:"Sắp ra mắt",
+    wiki_txt:"Hướng dẫn trò chơi: lớp nhân vật, bản đồ, quái vật, boss và vật phẩm.",
+    shop_txt:"Mua tiền tệ trong game.", mercado_pj:"Chợ nhân vật", mercado_pj_txt:"Mua bán nhân vật an toàn và chính thức.",
+    especiales_txt:"Vật phẩm đặc biệt sẽ được bán tại đây.",
+    nosotros_txt:"Chúng tôi là đội ngũ Red Moon. Thông tin thêm sẽ sớm được cập nhật.",
+    soporte_txt:"Cần trợ giúp? Trung tâm hỗ trợ sẽ sớm mở cửa.",
+    ranking_txt:"Những người chơi và bang hội mạnh nhất sẽ xuất hiện tại đây.",
+    reglas_txt:"Luật chơi sẽ được công bố tại đây.",
+    play_titulo:"Thử nghiệm kín — Phiên bản offline",
+    play_txt:"Đây là phiên bản thử nghiệm offline. Các phiên bản online sẽ sớm ra mắt. Vui lòng tham gia các nhóm của chúng tôi trước khi tải game để gửi góp ý và ý kiến. Hầu hết các chủ đề sẽ được thảo luận trong nhóm Telegram.",
+    paso1:"Bước 1 · Tham gia Discord", paso2:"Bước 2 · Tham gia Telegram",
+    bajar_apk:"Tải cho Android (APK)", bloqueado:"Hoàn thành bước 1 và 2 để mở khóa tải xuống",
+    nota_apk:"Android có thể yêu cầu cho phép cài đặt ứng dụng từ nguồn không xác định. Google Play và App Store sắp ra mắt.",
+    descargar_ya:"Tải ngay", hecho:"Xong" },
+  id:{ play:"Main Sekarang", lema:"Bangkit di bawah Bulan Merah",
+    m_inicio:"Beranda", m_play:"Main Sekarang", m_noticias:"Berita", m_cuenta:"Akun", m_wiki:"Wiki", m_market:"Market",
+    m_nosotros:"Tentang Kami", m_soporte:"Bantuan", m_ranking:"Peringkat", m_reglas:"Aturan", m_redes:"Sosial",
+    eventos:"Event", ir_cuenta:"Akun",
+    entrar:"Masuk", registrar:"Daftar", usuario:"Nama pengguna", clave:"Kata sandi", correo:"Email",
+    cuentas_pronto:"Akun akan segera dibuka. Nantikan!", pronto:"Segera hadir",
+    wiki_txt:"Panduan game: kelas, peta, monster, bos, dan item.",
+    shop_txt:"Beli mata uang dalam game.", mercado_pj:"Pasar Karakter", mercado_pj_txt:"Jual beli karakter dengan aman dan resmi.",
+    especiales_txt:"Item spesial akan dijual di sini.",
+    nosotros_txt:"Kami adalah tim Red Moon. Info lebih lanjut tentang kami segera hadir.",
+    soporte_txt:"Butuh bantuan? Pusat bantuan segera dibuka.",
+    ranking_txt:"Pemain dan klan terbaik akan muncul di sini.",
+    reglas_txt:"Aturan game akan dipublikasikan di sini.",
+    play_titulo:"Tes Tertutup — Versi Offline",
+    play_txt:"Ini adalah versi tes offline. Versi online akan segera hadir. Silakan bergabung dengan grup kami sebelum mengunduh game agar kamu bisa memberikan masukan dan pendapat. Sebagian besar topik akan dibahas di grup Telegram.",
+    paso1:"Langkah 1 · Gabung Discord kami", paso2:"Langkah 2 · Gabung Telegram kami",
+    bajar_apk:"Unduh untuk Android (APK)", bloqueado:"Selesaikan langkah 1 dan 2 untuk membuka unduhan",
+    nota_apk:"Android mungkin meminta izin untuk memasang aplikasi dari sumber tidak dikenal. Google Play dan App Store segera hadir.",
+    descargar_ya:"Unduh sekarang", hecho:"Selesai" }
 };
 
-/* =========================================================
-   5) ICONOS DIBUJADOS (cada opción del menú tiene el suyo)
-   ========================================================= */
 const ICONOS = {
+  play:`<svg viewBox="0 0 40 40"><g class="parpadea"><circle cx="20" cy="20" r="17" fill="#d8352a" opacity=".35"/></g><circle cx="20" cy="20" r="13" fill="#7a1a10" stroke="#f2c46a" stroke-width="2"/><path d="M16 13 L28 20 L16 27 Z" fill="#f2c46a"/></svg>`,
   inicio:`<svg viewBox="0 0 40 40"><rect x="7" y="29" width="26" height="5" rx="2.5" fill="#7a4a22" transform="rotate(-14 20 31)"/><rect x="7" y="29" width="26" height="5" rx="2.5" fill="#5e3618" transform="rotate(14 20 31)"/><g class="llama"><path d="M20 3 C29 13 31 20 27 27 Q20 33 13 27 C9 20 13 13 20 3Z" fill="#e8541e"/><path d="M20 12 C24.5 18 25.5 22 23 26 Q20 29 17 26 C14.5 22 16 18 20 12Z" fill="#ffd34d"/></g></svg>`,
   noticias:`<svg viewBox="0 0 40 40"><g class="flota"><rect x="6" y="12" width="28" height="14" rx="7" fill="#e8d3a8"/><ellipse cx="8" cy="19" rx="3.5" ry="7" fill="#c9ad7a"/><ellipse cx="32" cy="19" rx="3.5" ry="7" fill="#c9ad7a"/><path d="M13 16h14M13 20h10" stroke="#a88c5c" stroke-width="1.5"/><circle cx="20" cy="28" r="6" fill="#b3241f"/><circle cx="20" cy="28" r="2.6" fill="#7a140f"/><path d="M18 32 l-2 6 3 -2 2 2 -1 -6" fill="#b3241f"/></g></svg>`,
   cuenta:`<svg viewBox="0 0 40 40"><rect x="25" y="4" width="5" height="30" rx="2.5" fill="#7a4a22" transform="rotate(30 27 19)"/><ellipse cx="31" cy="8" rx="6" ry="5" fill="#8a5428" transform="rotate(30 27 19)"/><circle cx="17" cy="22" r="13" fill="#8a5428" stroke="#3b2412" stroke-width="2"/><circle cx="17" cy="22" r="8.5" fill="none" stroke="#c9a46a" stroke-width="2"/><circle cx="17" cy="22" r="3.5" fill="#efe4cc"/></svg>`,
@@ -527,21 +678,23 @@ const ICONOS = {
   oro:`<svg viewBox="0 0 40 40"><path d="M14 12 Q10 6 20 5 Q30 6 26 12 Q36 20 20 36 Q4 20 14 12Z" fill="#c8932f"/><path d="M14 12 Q20 15 26 12" stroke="#7a5212" stroke-width="2.5" fill="none"/><circle cx="20" cy="23" r="5" fill="#ffe27a"/><circle cx="20" cy="23" r="2" fill="#c8932f"/></svg>`
 };
 
-/* Dibujos grandes de las páginas Noticias y Market */
 const ARTE_NOTICIAS = `<svg viewBox="0 0 170 135"><ellipse cx="88" cy="124" rx="58" ry="6" fill="#000" opacity=".45"/><g class="flota"><g class="ala-lenta"><path d="M108 66 L118 14 L150 2 C146 18 152 30 160 38 C148 40 140 46 138 56 C130 50 120 52 116 62 Z" fill="#4a120a"/><path d="M118 14 L150 2 M118 14 L160 38 M118 14 L138 56" stroke="#1e0905" stroke-width="2.4"/></g><path d="M112 102 C132 108 150 100 156 88 C160 80 154 74 148 80 C142 90 130 96 114 94 Z" fill="#2e221c"/><path d="M156 88 L166 84 L160 94 Z" fill="#6b4a32"/><path d="M68 72 C78 56 104 52 120 62 C132 72 132 94 118 104 C100 114 78 110 68 98 Z" fill="#3a2a22"/><path d="M76 76 C88 66 104 64 116 70" stroke="#6b4a32" stroke-width="3" fill="none"/><path d="M84 66 l3 -9 4 8 M98 62 l4 -10 3 10 M112 64 l5 -8 1 9" fill="#d8c8a8"/><path d="M80 74 C70 56 60 44 48 38" stroke="#3a2a22" stroke-width="17" fill="none" stroke-linecap="round"/><path d="M70 66 C64 56 58 50 50 46" stroke="#6b4a32" stroke-width="3" fill="none"/><path d="M50 26 L24 33 L8 40 L22 45 L40 47 L54 43 C61 38 59 28 50 26Z" fill="#4a3628"/><path d="M22 45 L44 49 L30 55 Z" fill="#2e221c"/><path d="M14 43 l3 4 2 -4 M22 45 l2 4 2 -4" stroke="#efe4cc" stroke-width="1.6" fill="none"/><path d="M52 28 L70 12 L58 31Z M47 27 L60 7 L52 29Z" fill="#d8c8a8"/><g class="parpadea"><circle cx="40" cy="34" r="4.5" fill="#ff5a2a" opacity=".45"/></g><path d="M36 33 L44 32 L41 36 Z" fill="#ffd34d"/><g class="humo" fill="#8a7f74"><circle cx="8" cy="34" r="3"/><circle cx="3" cy="28" r="2.2"/></g><path d="M74 96 C66 100 60 102 54 100" stroke="#3a2a22" stroke-width="12" fill="none" stroke-linecap="round"/><rect x="18" y="92" width="52" height="16" rx="8" fill="#e8d3a8"/><ellipse cx="20" cy="100" rx="5" ry="8" fill="#c9ad7a"/><ellipse cx="68" cy="100" rx="5" ry="8" fill="#c9ad7a"/><path d="M28 96 h30 M28 101 h24 M28 105 h28" stroke="#a88c5c" stroke-width="1.3"/><circle cx="44" cy="110" r="7" fill="#b3241f"/><circle cx="44" cy="110" r="3.2" fill="#7a140f"/><path d="M42 112 l-3 8 4 -3 3 3 -1 -8" fill="#b3241f"/><path d="M50 92 L46 84 L54 90 M58 92 L56 82 L62 90 M66 94 L66 84 L70 92" fill="#efe4cc" stroke="#2e221c" stroke-width="1"/><path d="M50 108 C54 114 60 114 64 108" stroke="#3a2a22" stroke-width="6" fill="none" stroke-linecap="round"/><g class="ala-lenta"><path d="M96 64 L82 8 L112 18 C110 28 116 36 124 40 C114 44 108 50 108 60 C102 56 96 58 96 64 Z" fill="#8a2416"/><path d="M82 8 L112 18 M82 8 L124 40 M82 8 L108 60" stroke="#2a0e06" stroke-width="2.2"/><path d="M96 64 L82 8" stroke="#2e221c" stroke-width="4" stroke-linecap="round"/></g><path d="M100 104 l-6 14 M112 102 l4 14" stroke="#2e221c" stroke-width="7" stroke-linecap="round"/><path d="M90 118 l-4 3 M94 118 l0 4 M98 118 l4 3 M112 116 l-3 4 M116 116 l1 4 M120 116 l4 3" stroke="#efe4cc" stroke-width="2" stroke-linecap="round"/></g></svg>`;
 const ARTE_MARKET = `<svg viewBox="0 0 140 120"><rect x="14" y="30" width="9" height="82" rx="3" fill="#7a4a22"/><rect x="117" y="30" width="9" height="82" rx="3" fill="#7a4a22"/><path d="M54 76 Q70 66 86 76 L88 90 L52 90 Z" fill="#4a3a2e"/><path d="M50 80 Q52 70 60 70 L62 80 Z M90 80 Q88 70 80 70 L78 80 Z" fill="#5a5f66"/><circle cx="70" cy="60" r="15" fill="#5f8a34"/><path d="M64 68 Q70 72 76 68" stroke="#2f4a18" stroke-width="2" fill="none"/><path d="M64 68 L63 62 L66 67 Z M76 68 L77 62 L74 67 Z" fill="#efe4cc"/><path d="M55 56 L48 50 L57 52 Z M85 56 L92 50 L83 52 Z" fill="#5f8a34"/><path d="M58 50 Q70 38 82 50 Q76 46 70 47 Q64 46 58 50Z" fill="#1e1a14"/><path d="M68 44 Q70 30 74 26 Q72 36 73 44Z" fill="#1e1a14"/><path d="M61 54 L68 57 M79 54 L72 57" stroke="#1e1a14" stroke-width="2.6" stroke-linecap="round"/><circle cx="65" cy="60" r="2.4" fill="#ff5a2a"/><circle cx="75" cy="60" r="2.4" fill="#ff5a2a"/><g class="flota"><path d="M84 72 Q92 60 96 54" stroke="#5f8a34" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M90 50 Q86 40 96 38 Q106 40 102 50 Q110 58 96 62 Q82 58 90 50Z" fill="#c8932f"/><path d="M90 46 Q96 49 102 46" stroke="#7a5212" stroke-width="2.5" fill="none"/><circle cx="96" cy="54" r="3.5" fill="#ffe27a"/></g><g class="parpadea" fill="#ffe27a"><path d="M108 40 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2z"/></g><path d="M8 16 H132 V36 H8 Z" fill="#ead2a4"/><path d="M8 16 h20 v20 h-20z M48 16 h20 v20 h-20z M88 16 h20 v20 h-20z" fill="#b3241f"/><path d="M8 36 a10 9 0 0 0 20 0 z M48 36 a10 9 0 0 0 20 0 z M88 36 a10 9 0 0 0 20 0 z" fill="#b3241f"/><path d="M28 36 a10 9 0 0 0 20 0 z M68 36 a10 9 0 0 0 20 0 z M108 36 a10 9 0 0 0 20 0 z" fill="#ead2a4"/><path d="M4 16 Q70 2 136 16" stroke="#5a3218" stroke-width="5" fill="none" stroke-linecap="round"/><rect x="16" y="86" width="108" height="14" rx="4" fill="#8a5428"/><rect x="16" y="98" width="108" height="14" rx="3" fill="#6b3e1f"/><path d="M30 99 v12 M52 99 v12 M76 99 v12 M100 99 v12" stroke="#4e2c14" stroke-width="2"/><ellipse cx="38" cy="83" rx="12" ry="7" fill="#c0533a"/><rect x="47" y="80" width="12" height="4" rx="2" fill="#f0ead8"/><circle cx="60" cy="80" r="2.6" fill="#f0ead8"/><circle cx="60" cy="84" r="2.6" fill="#f0ead8"/><rect x="82" y="80" width="22" height="4.5" rx="2.2" fill="#f0ead8"/><circle cx="82" cy="80" r="3" fill="#f0ead8"/><circle cx="82" cy="85" r="3" fill="#f0ead8"/><circle cx="104" cy="80" r="3" fill="#f0ead8"/><circle cx="104" cy="85" r="3" fill="#f0ead8"/></svg>`;
 
-/* ===================== (no hace falta tocar lo de abajo) ===================== */
-const BANDERAS = { en:["🇺🇸","EN"], es:["🇪🇸","ES"], pt:["🇧🇷","PT"] };
 const ICONOS_REDES = {
   Discord:'<svg viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-9l-5 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm5 5a1.3 1.3 0 1 0 0 2.6A1.3 1.3 0 0 0 9 10zm6 0a1.3 1.3 0 1 0 0 2.6A1.3 1.3 0 0 0 15 10z"/></svg>',
   Instagram:'<svg viewBox="0 0 24 24"><path d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zm0 2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm5 3.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7zm0 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM17.3 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>',
   Facebook:'<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1.5 6H15V5.5h-1.8c-2 0-3.2 1.2-3.2 3.3V11H8v2.5h2V20h2.5v-6.5h2l.4-2.5h-2.4V9c0-.6.3-1 1-1z"/></svg>',
   TikTok:'<svg viewBox="0 0 24 24"><path d="M10 9v7a2.5 2.5 0 1 1-2.5-2.5V11A5 5 0 1 0 12.5 16V8.5A6 6 0 0 0 17 10V7.5a3.5 3.5 0 0 1-3.5-3.5H11v5z"/></svg>',
   YouTube:'<svg viewBox="0 0 24 24"><path d="M5 5h14a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3zm5 4v6l5-3z"/></svg>',
+  Telegram:'<svg viewBox="0 0 24 24"><path d="M21.5 3.5 2.8 10.7c-1 .4-1 1.8.1 2.1l4.6 1.4 1.8 5.6c.3.8 1.3 1 1.9.4l2.6-2.5 4.8 3.5c.7.5 1.6.1 1.8-.7L23 4.8c.2-1-.7-1.7-1.5-1.3zM9.5 14.6l8.8-7.7-6.8 9-.3 3.4z"/></svg>',
   X:'<svg viewBox="0 0 24 24"><path d="M4 4h4l4 5.5L16.5 4H20l-6.2 7.6L20 20h-4l-4.3-5.8L7 20H3.5l6.5-8z"/></svg>'
 };
-let idioma = "en";
+
+/* ===================== (no hace falta tocar lo de abajo) ===================== */
+const tx = k => (T[idioma] && T[idioma][k]) || T.en[k] || "";
+const tr = o => (o && (o[idioma] || o.en)) || "";
+let idioma = IDIOMAS[0].code;
 try { const g = localStorage.getItem("rm_idioma"); if (T[g]) idioma = g; } catch(e){}
 
 // iconos del menú, tarjetas y dibujos grandes
@@ -549,6 +702,8 @@ document.querySelectorAll("nav.menu a").forEach(a => a.insertAdjacentHTML("after
 document.querySelectorAll("[data-ic]").forEach(s => s.innerHTML = ICONOS[s.dataset.ic] || "");
 document.getElementById("arteNoticias").innerHTML = ARTE_NOTICIAS;
 document.getElementById("arteMarket").innerHTML = ARTE_MARKET;
+document.getElementById("icoDiscord").innerHTML = ICONOS_REDES.Discord;
+document.getElementById("icoTelegram").innerHTML = ICONOS_REDES.Telegram;
 
 // brasas flotando sobre la imagen
 (function(){
@@ -567,28 +722,57 @@ function pintarEntradas(lista, cont, max){
   const el = document.getElementById(cont); if(!el) return;
   el.innerHTML = lista.slice(0, max || lista.length).map(n => `
     <div class="entrada">
-      <span class="etiqueta">${n.etiqueta[idioma]}</span><span class="fecha">${n.fecha[idioma]}</span>
-      <h3>${n.titulo[idioma]}</h3>
-      <p>${n.texto[idioma]}</p>
+      <span class="etiqueta">${tr(n.etiqueta)}</span><span class="fecha">${tr(n.fecha)}</span>
+      <h3>${tr(n.titulo)}</h3>
+      <p>${tr(n.texto)}</p>
+      ${n.boton ? `<a class="btn btn-entrada" href="${n.boton}">${tx("descargar_ya")}</a>` : ""}
     </div>`).join("");
 }
 function pintarRedes(cont){
   document.getElementById(cont).innerHTML = REDES.map(r => r.link
     ? `<a class="red" href="${r.link}" target="_blank" rel="noopener">${ICONOS_REDES[r.nombre]||""}<span>${r.nombre}</span></a>`
-    : `<div class="red red-pronto">${ICONOS_REDES[r.nombre]||""}<span>${r.nombre}</span><small>${T[idioma].pronto}</small></div>`).join("");
+    : `<div class="red red-pronto">${ICONOS_REDES[r.nombre]||""}<span>${r.nombre}</span><small>${tx("pronto")}</small></div>`).join("");
+}
+function pintarIdiomas(){
+  const act = IDIOMAS.find(l => l.code === idioma) || IDIOMAS[0];
+  document.getElementById("banderaActual").textContent = act.flag;
+  document.getElementById("codigoActual").textContent = act.code.toUpperCase();
+  document.getElementById("idiomaLista").innerHTML = IDIOMAS.map(l =>
+    `<button data-lang="${l.code}" class="${l.code===idioma?'actual':''}"><span class="bandera">${l.flag}</span><span>${l.nombre}</span></button>`).join("");
 }
 function aplicarIdioma(){
   document.documentElement.lang = idioma;
-  document.querySelectorAll("[data-t]").forEach(el => { const k = el.dataset.t; if (T[idioma][k]) el.textContent = T[idioma][k]; });
-  document.getElementById("banderaActual").textContent = BANDERAS[idioma][0];
-  document.getElementById("codigoActual").textContent = BANDERAS[idioma][1];
+  document.querySelectorAll("[data-t]").forEach(el => { const v = tx(el.dataset.t); if (v) el.textContent = v; });
+  pintarIdiomas();
   pintarEntradas(EVENTOS, "listaEventosInicio", 3);
   pintarEntradas(NOTICIAS, "listaNoticiasInicio", 3);
   pintarEntradas(NOTICIAS, "listaNoticias");
   pintarRedes("redesInicio"); pintarRedes("redesPagina");
+  pintarDesbloqueo();
 }
+
+// ---------- Jugar ahora: tocar Discord y Telegram para desbloquear la descarga ----------
+function leer(k){ try { return localStorage.getItem(k) === "1"; } catch(e){ return false; } }
+function guardar(k){ try { localStorage.setItem(k, "1"); } catch(e){} }
+const hechos = { dc: leer("rm_dc"), tg: leer("rm_tg") };
+function pintarDesbloqueo(){
+  document.getElementById("paso1").classList.toggle("hecho", hechos.dc);
+  document.getElementById("paso2").classList.toggle("hecho", hechos.tg);
+  const listo = hechos.dc && hechos.tg;
+  const b = document.getElementById("btnApk");
+  b.classList.toggle("bloqueado", !listo);
+  if (listo) { b.href = LINK_APK; b.target = "_blank"; b.rel = "noopener"; } else { b.removeAttribute("href"); }
+  document.getElementById("avisoBloqueo").style.display = listo ? "none" : "block";
+}
+document.getElementById("paso1").href = LINK_DISCORD;
+document.getElementById("paso2").href = LINK_TELEGRAM;
+document.getElementById("paso1").addEventListener("click", () => { hechos.dc = true; guardar("rm_dc"); setTimeout(pintarDesbloqueo, 300); });
+document.getElementById("paso2").addEventListener("click", () => { hechos.tg = true; guardar("rm_tg"); setTimeout(pintarDesbloqueo, 300); });
+document.addEventListener("visibilitychange", pintarDesbloqueo);
+
 function idActual(){
   let id = (location.hash || "#inicio").slice(1);
+  if (id === "descargar") id = "play";
   return document.getElementById("p-" + id) ? id : "inicio";
 }
 function mostrarPagina(){
@@ -598,29 +782,31 @@ function mostrarPagina(){
 }
 
 // transición: dragón dorado + luna roja al cambiar de página
-const tr = document.getElementById("transicion");
+const trn = document.getElementById("transicion");
 let primera = true;
 function cambiar(){
   if (primera) { primera = false; mostrarPagina(); return; }
-  tr.classList.remove("activa"); void tr.offsetWidth; tr.classList.add("activa");
+  trn.classList.remove("activa"); void trn.offsetWidth; trn.classList.add("activa");
   setTimeout(() => {
     mostrarPagina();
     document.getElementById("menu").scrollIntoView({behavior:"smooth", block:"start"});
   }, 380);
-  setTimeout(() => tr.classList.remove("activa"), 1050);
+  setTimeout(() => trn.classList.remove("activa"), 1050);
 }
 
-// banderita
+// selector de idioma
 const lista = document.getElementById("idiomaLista");
 document.getElementById("idiomaBtn").addEventListener("click", e => { e.stopPropagation(); lista.classList.toggle("abierta"); });
 document.addEventListener("click", () => lista.classList.remove("abierta"));
-lista.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+lista.addEventListener("click", e => {
+  const b = e.target.closest("button[data-lang]"); if (!b) return;
+  e.stopPropagation();
   idioma = b.dataset.lang;
   try { localStorage.setItem("rm_idioma", idioma); } catch(e){}
   aplicarIdioma(); lista.classList.remove("abierta");
-}));
+});
 
-// formularios (todavía no guardan nada)
+// formularios de cuenta (todavía no guardan nada)
 document.querySelectorAll(".formPronto").forEach(f => f.addEventListener("submit", e => {
   e.preventDefault(); f.querySelector(".aviso").classList.add("ver");
 }));
@@ -628,6 +814,7 @@ document.querySelectorAll(".formPronto").forEach(f => f.addEventListener("submit
 document.getElementById("anio").textContent = new Date().getFullYear();
 aplicarIdioma(); cambiar();
 window.addEventListener("hashchange", cambiar);
+
 </script>
 </body>
 </html>
